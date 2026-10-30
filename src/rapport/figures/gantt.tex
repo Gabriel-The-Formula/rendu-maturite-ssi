@@ -1,0 +1,18 @@
+% Calendrier de production du projet étudiant (20 octobre au 10 novembre 2026).
+% Les barres sont des fenêtres de réalisation, pas une activité à temps plein.
+\begin{ganttchart}[
+  hgrid={*1{draw=filet, dotted}}, vgrid={*1{draw=filet, dotted}},
+  x unit=0.43cm, y unit chart=0.43cm, y unit title=0.45cm,
+  title height=1, title label font=\scriptsize\bfseries, title/.append style={fill=accentclair, draw=filet},
+  bar/.append style={fill=accent, draw=accent}, bar height=0.55,
+  bar label font=\scriptsize, bar label node/.append style={align=right},
+  milestone/.append style={fill=alerte, draw=alerte}, milestone label font=\scriptsize\bfseries\color{alerte},
+  milestone height=0.6,
+  link/.style={->, draw=gris, thin, rounded corners=1pt},
+]{1}{22}
+\gantttitle{Octobre 2026}{12}\gantttitle{Novembre 2026}{10}\\
+\gantttitlelist{20,...,31}{1}\gantttitlelist{1,...,10}{1}\\
+\newcommand\TacheGantt[5]{\ganttbar[name=#1]{#1 #2 \textcolor{gris}{(#3)}}{#4}{#5}\\}
+\newcommand\JalonGantt[3]{\ganttmilestone[name=#1]{#1 #2}{#3}\\}
+\input{donnees/gantt_projet.tex}
+\end{ganttchart}

@@ -1,0 +1,96 @@
+% Présentation CODIR · 10 minutes + 5 minutes de questions · 6 diapositives
+% Moteur : XeLaTeX. Les chiffres viennent de donnees/macros.tex (générés).
+\documentclass[aspectratio=169,10pt]{beamer}
+\usepackage{iftex}
+\ifPDFTeX\usepackage[T1]{fontenc}\usepackage[utf8]{inputenc}\fi
+\usepackage{libertinus}
+\usepackage[french]{babel}
+\frenchsetup{AutoSpacePunctuation=false}
+\usepackage{tikz,booktabs,tabularx,array}
+\input{equipe.tex}
+\input{donnees/macros.tex}
+
+\definecolor{encre}{HTML}{1F2A37}\definecolor{accent}{HTML}{1D5C7A}\definecolor{accentclair}{HTML}{E4EEF3}
+\definecolor{alerte}{HTML}{A33A3A}\definecolor{vert}{HTML}{3B7A57}\definecolor{gris}{HTML}{5F6B7A}\definecolor{grisclair}{HTML}{F2F4F6}
+\setbeamercolor{normal text}{fg=encre}\setbeamercolor{frametitle}{fg=accent}\setbeamercolor{structure}{fg=accent}
+\setbeamerfont{frametitle}{size=\Large,series=\bfseries}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}{\hfill{\scriptsize\color{gris}MEDICA-SERVICES · CODIR · \insertframenumber/\inserttotalframenumber}\hspace*{1em}\vspace{0.6em}}
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+
+\newcommand{\troiscartes}[9]{% couleur, titre, texte pour trois cartes alignées
+  \begin{tikzpicture}[carte/.style={rounded corners=3pt, text width=4.0cm, inner sep=7pt, align=left, anchor=north}]
+    \node[carte, draw=#1, fill=#1!6] at (0,0) {\parbox[t][4.9cm][t]{\linewidth}{{\bfseries\color{#1}#2}\\[4pt]\small #3}};
+    \node[carte, draw=#4, fill=#4!6] at (4.65,0) {\parbox[t][4.9cm][t]{\linewidth}{{\bfseries\color{#4}#5}\\[4pt]\small #6}};
+    \node[carte, draw=#7, fill=#7!6] at (9.3,0) {\parbox[t][4.9cm][t]{\linewidth}{{\bfseries\color{#7}#8}\\[4pt]\small #9}};
+  \end{tikzpicture}}
+
+\begin{document}
+
+\begin{frame}[plain]
+  \begin{tikzpicture}[remember picture,overlay]
+    \fill[accent] (current page.north west) rectangle ([yshift=-5cm]current page.north east);
+    \node[anchor=north west, text=white, align=left, text width=13cm] at ([xshift=1.2cm,yshift=-1.2cm]current page.north west) {%
+      {\footnotesize\Formation}\\[8pt]{\huge\bfseries Audit de maturité SSI}\\[5pt]{\Large MEDICA-SERVICES · Restitution au CODIR}};
+    \node[anchor=north west, align=left, text width=13.5cm] at ([xshift=1.2cm,yshift=-5.7cm]current page.north west) {%
+      {\small \Membres\ · \DateDepot}\\[6pt]
+      {\footnotesize\color{gris} Audit sur pièces P01 à P17 et T01 à T10. Méthode SGDN/DCSSI 2007 utilisée comme référence pédagogique, sans valeur de certification. Cas fictif.}};
+  \end{tikzpicture}
+\end{frame}
+
+\begin{frame}{Où en est MEDICA-SERVICES}
+  \begin{columns}[T]
+  \begin{column}{0.46\textwidth}
+  \textbf{Niveau adéquat : \Cible\ sur 5}\par\smallskip
+  {\small Somme des maxima \SommeMaxima. Données de santé, sécurité de patients chez 12 clients, reprise contractuelle en 8 h.}\par\bigskip
+  \textbf{Niveau démontré : 1 à 2}\par\smallskip
+  {\small Aucun processus au niveau 3. Écart de 2 à 3 niveaux.}\par\bigskip
+  {\small\color{alerte} Trois affirmations de la direction ne sont pas étayées par les pièces (P17).}
+  \end{column}
+  \begin{column}{0.5\textwidth}
+  \small
+  \begin{tabularx}{\linewidth}{@{}Y c c@{}}
+  \toprule Processus & Démontré & Cible \\ \midrule
+  Stratégie & \peff{Stratégie} & \Cible \\ Risques & \peff{Risques} & \Cible \\ Règles & \peff{Règles} & \Cible \\
+  Supervision & \peff{Supervision} & \Cible \\ Conception & \peff{Conception} & \Cible \\ Réalisation & \peff{Réalisation} & \Cible \\
+  Exploitation & \peff{Exploitation} & \Cible \\ \bottomrule
+  \end{tabularx}
+  \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Trois risques majeurs}
+  \centering
+  \troiscartes{alerte}{R01 · Compte à privilèges détourné}{Score \rscore{R01}. 4 comptes privilégiés sur 10 sans MFA, dont un administrateur de domaine dormant. Modification non autorisée de l'AD et des serveurs.}{alerte}{R02 · Reprise au-delà de 8 h}{Score \rscore{R02}. Rançongiciel ou panne. Restaurations peu éprouvées et sauvegardes joignables depuis tous les postes.}{accent}{R03 · Données patients via APP01}{Score \rscore{R03}. Correctif critique manquant depuis 74 jours, sans exception. Application non exposée directement.}
+\end{frame}
+
+\begin{frame}{Trois constats décisifs}
+  \centering
+  \troiscartes{alerte}{Alerte AL-1048 fermée sans examen}{9 octobre, 00:13 à 00:22 UTC. Compte dormant admin-old connecté au VPN après 3 échecs, ajout à Server-Admins. Fermeture automatique 24 h plus tard, aucun ticket. À investiguer, pas une intrusion prouvée (T07, T08).}{alerte}{Restauration testée sur 2 services sur 9}{La DG déclare des tests trimestriels de toutes les restaurations. Deux PV seulement, sans durée mesurée ni RPO (T09, P17).}{accent}{MFA à 60 \% des comptes privilégiés}{La DSI déclare 100 \%. Export : 6 comptes sur 10. Prestataire et compte de sauvegarde sans second facteur (T03, T04, P17).}
+\end{frame}
+
+\begin{frame}{Trois décisions demandées}
+  \small
+  \begin{tabularx}{\linewidth}{@{}c Y Y@{}}
+  \toprule & Décision & Effet attendu \\ \midrule
+  \textbf{1} & Mandater dès aujourd'hui l'investigation d'AL-1048 et les mesures conservatoires (admin-old, FW-31, FW-17) & Événement qualifié, accès à risque fermés sous un mois \\[3pt]
+  \textbf{2} & Engager \TotalRetenu\ sur \Plafond\ pour six actions (A01, A02, A03, A05, A08, A09) & Les 7 processus au niveau 2 démontré à 12 mois, marge \Marge \\[3pt]
+  \textbf{3} & Accepter par écrit pour 12 mois les risques résiduels liés au report de la segmentation (A10) et de la standardisation (A04) & Risques R04 et R06 suivis et réexaminés au bilan annuel \\ \bottomrule
+  \end{tabularx}
+\end{frame}
+
+\begin{frame}{Feuille de route sur 12 mois}
+  \begin{tikzpicture}[x=0.72cm,y=0.55cm,font=\small]
+    \foreach \m in {1,...,12}{\node[gris,font=\scriptsize] at (\m-0.5,0.8) {M\m};}
+    \foreach \l/\a/\b/\t [count=\i] in {Mesures conservatoires/0/1/{Incident AL-1048, comptes, règles FW},
+      A08 MFA et privilèges/0/3/100 \% MFA ou exception,A02 Supervision/0/3/Alertes tracées,
+      A01 Risques/1/4/Registre approuvé,A09 Correctifs/1/4/{SLA et APP01 corrigé},A05 Restauration/2/6/9 PV sur 9,
+      A03 PSSI et sensibilisation/3/6/PSSI v2,Stabilisation/6/12/Bilan de maturité}{
+      \fill[vert!80] (\a,-\i+0.3) rectangle (\b,-\i-0.3);
+      \node[anchor=east,font=\scriptsize] at (-0.1,-\i) {\l};
+      \node[anchor=west,font=\scriptsize,gris] at (\b+0.05,-\i) {\t};}
+  \end{tikzpicture}
+  \par\smallskip{\footnotesize\color{gris} Hypothèse : décision du CODIR à la mi-novembre 2026, M1 = décembre 2026. Chaque palier est validé par une preuve de clôture, non par déclaration.}
+\end{frame}
+
+\end{document}

@@ -1,0 +1,91 @@
+\section{Audit technique sur pièces (T1 à T4)}
+
+\subsection{Architecture, flux et segmentation (T1)}
+
+Le schéma \piece{T01} décrit un cloisonnement en zones dont la logique est saine dans son principe. Le portail est publié en DMZ derrière FW01, l'application et la base sont isolées dans le VLAN 20, et l'administration passe par un VPN et un bastion. La surface exposée à Internet observée se limite à WEB01, qui répond sur 80 et 443 avec SSH filtré \piece{(T02)}, et au point d'entrée VPN. Ces ouvertures sont attendues pour un portail public et ne constituent pas en elles-mêmes une faille exploitée. Quatre règles s'écartent toutefois du principe de moindre privilège et appellent des contrôles complémentaires.
+
+\begin{figure}[h]
+\centering
+\resizebox{\linewidth}{!}{\input{figures/zones.tex}}
+\caption{Zones de confiance et flux extraits de T01 et T02. Les règles sont tracées telles qu'extraites, sans journaux de trafic.}
+\end{figure}
+
+\begin{table}[h]
+\centering\small
+\caption{Règles douteuses et contrôles complémentaires}
+\begin{tabularx}{\linewidth}{@{}C{1.1cm} L{4.2cm} Y Y@{}}
+\entete \hd{Règle} & \hd{Constat} & \hd{Lecture prudente} & \hd{Contrôle complémentaire} \\
+FW-08 & HTTP 80 ouvert sur WEB01 & Redirection déclarée par la DSI, non vérifiée & Requête de test et en-tête HSTS \\
+FW-17 & RDP direct du VPN vers tout le VLAN 20, déclaré provisoire & Contourne le bastion, donc la traçabilité des sessions & Date d'expiration, journaux de connexion, passage forcé par BASTION01 \\
+FW-19 & SMB 445 de tous les postes vers le VLAN 30 & Périmètre large au regard du besoin métier & Liste des partages et des groupes, restriction par groupe \\
+FW-31 & Any des postes vers les sauvegardes, règle héritée & Aucune justification. Un poste compromis pourrait atteindre BACKUP01 & Journaux sur 30 jours, suppression ou restriction, test de segmentation \\
+\end{tabularx}
+\end{table}
+
+\subsection{Identités, privilèges et MFA (T2)}
+
+L'export \piece{T03} recense dix comptes privilégiés, dont six sont enrôlés MFA \piece{(T04)}. La couverture est donc de $6/10 = 60\,\%$ sur le périmètre fourni, ce qui concorde avec \piece{P03} et contredit la DSI, qui affirme que tous les comptes privilégiés en disposent \piece{(P17)}. Si le compte de service svc-backup est réellement non interactif, la couverture des comptes interactifs atteint $6/9 \approx 66{,}7\,\%$, et elle passerait à $6/8 = 75\,\%$ après la désactivation d'admin-old. Le résultat ne couvre pas les administrateurs des SaaS tiers. Quatre comptes appellent une action immédiate. Admin-old, administrateur de domaine dont la dernière activité documentée date du 14 février 2025, doit être désactivé à titre conservatoire, d'autant qu'il apparaît dans les journaux du 9 octobre 2026. Admin-presta et admin-db doivent être enrôlés MFA ou faire l'objet d'une exception approuvée. Svc-backup doit recevoir une interdiction technique d'ouverture de session interactive. La clôture sera vérifiée par un export exhaustif à 100\,\% ou accompagné d'exceptions signées, et par la preuve de la restriction de svc-backup.
+
+\begin{table}[H]
+\centering\small
+\caption{Comptes privilégiés à revoir (T03, T04)}
+\begin{tabularx}{\linewidth}{@{}L{2.3cm} L{2.6cm} L{2.1cm} Y Y@{}}
+\entete \hd{Compte} & \hd{Rôle} & \hd{Dernière activité} & \hd{Mesure immédiate} & \hd{Preuve de clôture} \\
+admin-old & Domain Admin, sans MFA & 2025-02-14 selon T03, connexion le 09/10/2026 selon T07 & Désactivation conservatoire et réinitialisation, revue de Server-Admins & Compte désactivé, liste des membres avant et après \\
+admin-presta & Admin VPN prestataire, sans MFA & 2026-09-20 & Enrôlement MFA ou exception signée, contrôle de la clause contractuelle & Export MFA, exception datée et approuvée \\
+admin-db & Admin base de données, sans MFA & 2026-10-04 & Enrôlement MFA & Export MFA \\
+svc-backup & Compte technique à droits élevés, sans MFA & 2026-10-11 & Refus d'ouverture de session interactive, secret en coffre, rotation & Stratégie appliquée, journal sans session interactive \\
+\end{tabularx}
+\end{table}
+
+\subsection{Vulnérabilités et correctifs (T3)}
+
+Le score CVSS décrit la gravité technique d'une vulnérabilité dans l'absolu. Le risque métier dépend en plus de l'exposition de l'actif, de sa criticité et des mesures compensatoires. C'est pourquoi le correctif manquant d'APP01 passe en tête malgré l'absence d'exposition directe, tandis que TLS 1.0 sur WEB01, pourtant exposé, reste de priorité modérée.
+
+\begin{table}[h]
+\centering\small
+\caption{Classement des constats de vulnérabilité au \DateReference}
+\begin{tabularx}{\linewidth}{@{}L{1.9cm} C{0.9cm} L{2.9cm} C{1.4cm} C{1.1cm} L{1.5cm} Y@{}}
+\entete \hd{Actif} & \hd{CVSS} & \hd{Exposition} & \hd{Criticité} & \hd{Retard} & \hd{Priorité} & \hd{Éléments de validation demandés} \\
+APP01 & 9,8 & Joignable depuis la DMZ et par FW-17 & Critique & 74 j & 1, élevée & CVE et version, avis éditeur, historique de déploiement, exception \\
+SRV-FICHIERS & 6,5 & Tout le VLAN 40 par FW-19 & Moyenne & 43 j & 2, élevée & Validation manuelle de la signature SMB, liste des partages \\
+WEB01 & 5,3 & Internet & Haute & 12 j & 3, modérée & Test TLS manuel, vérification de la redirection \\
+AD01 & · & Interne & Critique & 0 j & Contrôle & Inventaire authentifié récent, l'actuel datant du 25/09/2026 \\
+\end{tabularx}
+\end{table}
+
+Aucune exception n'est documentée et la PSSI ne fixe aucun délai par criticité \piece{(T06, P11)}. Les retards restent déclaratifs tant que les historiques de déploiement ne sont pas fournis.
+
+\subsection{Détection, journaux et sauvegardes (T4)}
+
+La chronologie suivante reprend les seuls éléments de \piece{T07} et \piece{T08}, en heure UTC. Elle décrit des faits observés sans les interpréter.
+
+\begin{table}[h]
+\centering\small
+\caption{Chronologie neutre du 9 octobre 2026}
+\begin{tabularx}{\linewidth}{@{}L{1.9cm} L{1.4cm} Y L{3.1cm}@{}}
+\entete \hd{Heure UTC} & \hd{Source} & \hd{Événement observé} & \hd{Écart} \\
+00:13:01 à 07 & VPN & Trois échecs d'authentification d'admin-old depuis 198.51.100.44 & \\
+00:13:12 & VPN & Authentification réussie du même compte, même adresse & 11 s après le premier échec \\
+00:18:32 & AD & Ajout par admin-old dans le groupe Server-Admins & 5 min 20 s après le succès \\
+00:22:15 & SIEM & Alerte AL-1048, sévérité HIGH, ouverte & 3 min 43 s plus tard \\
+10/10 00:22 & SIEM & Fermeture automatique, aucun ticket, aucune investigation tracée & 24 h \\
+\end{tabularx}
+\end{table}
+
+Ces signaux sont compatibles avec un usage illégitime du compte, mais aussi avec une intervention nocturne d'administration non documentée. La compromission n'est pas prouvée, faute de vérification de l'intégrité des journaux, de trace du second facteur et d'échange avec le titulaire. Une incohérence renforce la nécessité d'enquêter. L'export \piece{T03}, dont les autres dates vont jusqu'au 11 octobre, affiche pour admin-old une dernière activité au 14 février 2025, ce qui ne reflète pas la connexion du 9 octobre. Nous recommandons donc des mesures conservatoires immédiates, avec la désactivation du compte, la revue des membres de Server-Admins et la préservation des journaux, puis une investigation formelle.
+
+\begin{table}[H]
+\centering\small
+\caption{Sauvegardes et tests de restauration documentés (T09)}
+\begin{tabularx}{\linewidth}{@{}L{3.6cm} L{4.4cm} L{3.0cm} Y@{}}
+\entete \hd{Service} & \hd{Sauvegarde} & \hd{Dernier test documenté} & \hd{Lecture} \\
+MEDI-PORTAL & Planifiée & 15/09/2026 & PV sans durée mesurée \\
+Ticketing & Planifiée & 16/09/2026 & PV sans durée mesurée \\
+ERP, Active Directory, fichiers, base MEDI, supervision & Planifiée & Aucun PV fourni & Test non démontré, pas exclu \\
+Messagerie M365 & Sauvegarde tierce alléguée & Aucun PV fourni & Contrat et périmètre à obtenir \\
+VPN et bastion & Configuration exportée & Aucun PV fourni & Restauration de configuration à tester \\
+\end{tabularx}
+\end{table}
+
+Pour les sauvegardes, les neuf services du périmètre sont sauvegardés ou déclarés tels, mais seuls MEDI-PORTAL et le ticketing disposent d'un procès-verbal de test, daté des 15 et 16 septembre 2026 \piece{(T09)}. La couverture documentée est donc de $2/9 \approx 22\,\%$, loin de la déclaration selon laquelle toutes les restaurations seraient testées chaque trimestre \piece{(P17)}. L'absence de procès-verbal ne prouve pas l'absence de test, et les deux procès-verbaux existants ne prouvent pas le respect du délai de 8 heures, car aucune durée ni aucun RPO n'y figurent. Nous proposons des critères mesurables, à faire valider par la direction. Chaque service devrait disposer d'au moins un procès-verbal par an et les quatre services critiques, MEDI-PORTAL, sa base, l'AD et l'ERP, d'un procès-verbal par trimestre mesurant une durée de restauration inférieure à 8 heures. Toute alerte de sévérité HIGH devrait par ailleurs donner lieu à un ticket qualifié avant sa clôture.

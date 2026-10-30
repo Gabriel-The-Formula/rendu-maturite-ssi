@@ -1,0 +1,2 @@
+# Moteur XeLaTeX (pdf_mode 5). Sur Overleaf, choisir aussi XeLaTeX dans Menu > Compiler.
+$pdf_mode = 5;

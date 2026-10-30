@@ -1,0 +1,77 @@
+% Préambule commun du rapport MEDICA-SERVICES
+% Moteur recommandé : XeLaTeX (Overleaf : Menu > Compiler > XeLaTeX).
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp}
+\fi
+\usepackage{libertinus}
+\usepackage[french]{babel}
+\frenchsetup{SmallCapsFigTabCaptions=false, AutoSpacePunctuation=false}
+\usepackage[a4paper,top=2cm,bottom=2.1cm,left=2cm,right=2cm,headheight=14pt,footskip=1cm]{geometry}
+\usepackage{microtype}
+\usepackage[table]{xcolor}
+\usepackage{graphicx,booktabs,tabularx,array,makecell,multirow,longtable}
+\usepackage{tikz}
+\usetikzlibrary{positioning,arrows.meta,calc,fit,backgrounds,shapes.geometric}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.17}
+\usepackage{pgfgantt}
+\usepackage{fancyhdr,titlesec,enumitem}
+\usepackage[font=small,labelfont=bf,labelsep=period,skip=4pt]{caption}
+\usepackage{float,lastpage}
+\usepackage[hidelinks]{hyperref}
+
+% Palette limitée
+\definecolor{encre}{HTML}{1F2A37}
+\definecolor{accent}{HTML}{1D5C7A}
+\definecolor{accentclair}{HTML}{E4EEF3}
+\definecolor{alerte}{HTML}{A33A3A}
+\definecolor{ambre}{HTML}{B7791F}
+\definecolor{vert}{HTML}{3B7A57}
+\definecolor{gris}{HTML}{5F6B7A}
+\definecolor{grisclair}{HTML}{F2F4F6}
+\definecolor{filet}{HTML}{C9D1D9}
+\color{encre}
+
+% Titres
+\titleformat{\section}{\large\bfseries\color{accent}}{\thesection}{0.7em}{}
+\titleformat{\subsection}{\normalsize\bfseries\color{encre}}{\thesubsection}{0.6em}{}
+\titlespacing*{\section}{0pt}{10pt}{4pt}
+\titlespacing*{\subsection}{0pt}{7pt}{2pt}
+
+% Paragraphes
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{4pt plus 1pt}
+\linespread{1.04}
+
+% En-tête et pied de page
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\headrule}{\color{filet}\hrule height\headrulewidth\vspace{-0.3pt}}
+\fancyhead[L]{\footnotesize\color{gris}MEDICA-SERVICES · Audit de maturité SSI et audit technique}
+\fancyhead[R]{\footnotesize\color{gris}\GroupeNom}
+\fancyfoot[L]{\footnotesize\color{gris}Cas fictif pédagogique · Master 2 SSIR · TD 2}
+\fancyfoot[R]{\footnotesize\color{gris}Page \thepage\ sur \pageref{LastPage}}
+\fancypagestyle{plain}{\fancyhf{}\renewcommand{\headrulewidth}{0pt}\fancyfoot[R]{\footnotesize\color{gris}Page \thepage\ sur \pageref{LastPage}}}
+
+% Tableaux
+\renewcommand{\arraystretch}{1.18}
+\setlength{\tabcolsep}{4pt}
+\arrayrulecolor{filet}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+\newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}
+\newcolumntype{R}[1]{>{\raggedleft\arraybackslash}p{#1}}
+\newcommand{\entete}{\rowcolor{accent}}
+\newcommand{\hd}[1]{\color{white}\bfseries #1}
+\newcommand{\Retenu}{\textcolor{vert}{\bfseries Retenu}}
+\newcommand{\Differe}{\textcolor{gris}{Différé}}
+
+% Pièces
+\newcommand{\piece}[1]{\textsf{\small #1}}
+
+% Lignes de tableau générées (input primitif, compatible avec \midrule)
+\makeatletter\newcommand{\lignes}[1]{\@@input donnees/#1.tex }\makeatother

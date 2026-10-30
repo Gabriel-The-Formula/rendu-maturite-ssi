@@ -1,0 +1,14 @@
+% Feuille de route SSI sur 12 mois (distincte du calendrier de production du projet).
+% Hypothèse : décision du CODIR mi-novembre 2026, mois 1 = décembre 2026.
+\begin{ganttchart}[
+  hgrid={*1{draw=filet, dotted}}, vgrid={*1{draw=filet, dotted}},
+  x unit=0.62cm, y unit chart=0.42cm, y unit title=0.45cm,
+  title height=1, title label font=\scriptsize\bfseries, title/.append style={fill=accentclair, draw=filet},
+  bar/.append style={fill=vert, draw=vert}, bar height=0.55, bar label font=\scriptsize,
+]{1}{12}
+\gantttitlelist{1,...,12}{1}\\
+\newcounter{fr}
+\newcommand\FeuilleRoute[4]{\stepcounter{fr}\ganttbar[name=fr\arabic{fr}]{#1}{#2}{#3}%
+  \node[anchor=west, font=\tiny, text=gris] at (fr\arabic{fr}.east) {#4};\\}
+\input{donnees/gantt_feuille_route.tex}
+\end{ganttchart}

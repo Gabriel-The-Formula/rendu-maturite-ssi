@@ -1,0 +1,37 @@
+% Cartographie des zones et des flux (T01, T02). Tracé fondé sur les seules règles extraites.
+\begin{tikzpicture}[
+  font=\scriptsize, >={Stealth[length=2mm]},
+  zone/.style={draw=accent, fill=accentclair, rounded corners=2pt, inner sep=4pt, minimum height=11mm, align=center},
+  ext/.style={draw=gris, fill=grisclair, rounded corners=2pt, inner sep=4pt, minimum height=9mm, align=center},
+  ok/.style={->, draw=accent, thick},
+  douteux/.style={->, draw=alerte, thick, dashed},
+  large/.style={->, draw=ambre, thick},
+  info/.style={->, draw=gris, dotted, thick},
+  lab/.style={fill=white, inner sep=1pt, align=center}]
+  \node[ext] (inet) at (0,0) {Internet\\\tiny clients, attaquants};
+  \node[ext] (fw) at (2.9,0) {FW01\\\tiny périmètre};
+  \node[zone] (dmz) at (6.4,0) {\textbf{DMZ}\\WEB01\\\tiny reverse proxy MEDI-PORTAL};
+  \node[zone] (v20) at (11.6,0) {\textbf{VLAN 20}\\APP01, DB01\\\tiny APP01 vers DB01 par FW-23 (1433)};
+  \node[zone] (v50) at (2.9,-2.5) {\textbf{VLAN 50}\\VPN, BASTION01\\\tiny administration};
+  \node[zone] (v30) at (11.6,-2.5) {\textbf{VLAN 30}\\AD01, SRV-FICHIERS};
+  \node[zone] (v40) at (6.4,-4.6) {\textbf{VLAN 40}\\postes bureautiques};
+  \node[zone] (v60) at (11.6,-4.6) {\textbf{VLAN 60}\\BACKUP01};
+  \node[ext] (sec) at (15.2,-4.6) {Site de secours\\\tiny prestataire};
+
+  \draw[ok] (inet) -- (fw);
+  \draw[ok] (fw) -- node[lab, above=1pt]{FW-01 443} (dmz);
+  \draw[large] (fw.south east) to[bend right=12] node[lab, below=1pt]{FW-08 80 (à vérifier)} (dmz.south west);
+  \draw[ok] (dmz) -- node[lab, above=1pt]{WEB01 vers APP01} (v20);
+  \draw[ok] (inet.south) |- node[lab, pos=0.25]{VPN} (v50.west);
+  \draw[douteux] (v50.north east) to[bend left=8] node[lab, pos=0.45, below right=1pt]{FW-17 RDP 3389, hors bastion} (v20.south west);
+  \draw[large] (v40.north east) -- node[lab, sloped, pos=0.45]{FW-19 445, périmètre large} (v30.south west);
+  \draw[douteux] (v40) -- node[lab]{FW-31 Any, sans justification} (v60);
+  \draw[info] (v60) -- node[lab]{réplication\\non décrite} (sec);
+  \draw[info] (v30) -- node[lab, right]{sauvegarde interne} (v60);
+
+  \node[anchor=north west, align=left, font=\scriptsize] at (-0.7,-3.9) {%
+    \tikz\draw[ok] (0,0)--(0.6,0); flux attendu\\[1pt]
+    \tikz\draw[large] (0,0)--(0.6,0); flux à restreindre ou vérifier\\[1pt]
+    \tikz\draw[douteux] (0,0)--(0.6,0); règle douteuse\\[1pt]
+    \tikz\draw[info] (0,0)--(0.6,0); flux non documenté};
+\end{tikzpicture}

@@ -1,0 +1,64 @@
+\section{Scénarios de risque, arbitrage et feuille de route (G4)}
+\label{sec:g4}
+
+\subsection{Registre des risques}
+
+Les six scénarios suivants reformulent les constats en enjeux métier. La cotation de 1 à 4 suit la grille simplifiée de la notice et le score est le produit de l'impact par la vraisemblance. Les hypothèses de cotation sont explicites. L'impact tient compte des données de santé et du délai de reprise contractuel, et la vraisemblance de l'exposition, de la menace décrite en \piece{P07} et des mesures existantes.
+
+{\footnotesize
+\setlength{\tabcolsep}{3pt}
+\begin{longtable}{@{}C{0.7cm} L{3.6cm} L{2.0cm} L{3.7cm} C{0.4cm} C{0.4cm} C{0.6cm} L{4.05cm}@{}}
+\caption{Registre des risques (onglet 04, I impact, V vraisemblance)}\\
+\entete \hd{ID} & \hd{Événement redouté} & \hd{Actif} & \hd{Vulnérabilité ou faiblesse} & \hd{I} & \hd{V} & \hd{I×V} & \hd{Décision} \\
+\endfirsthead
+\entete \hd{ID} & \hd{Événement redouté} & \hd{Actif} & \hd{Vulnérabilité ou faiblesse} & \hd{I} & \hd{V} & \hd{I×V} & \hd{Décision} \\
+\endhead
+\lignes{tab_risques}
+\end{longtable}}
+
+\begin{minipage}[c]{0.36\linewidth}
+\centering
+\input{figures/risques.tex}
+\end{minipage}\hfill
+\begin{minipage}[c]{0.6\linewidth}
+R01 et R02 obtiennent le score le plus élevé, \rscore{R01}, car ils combinent un impact critique et des faiblesses observées sur des chemins d'attaque plausibles. R03 obtient \rscore{R03}. Son impact est maximal mais l'absence d'exposition directe d'APP01 réduit sa vraisemblance. R04 et R06 partagent un score de \rscore{R04} sans appeler le même traitement. Le premier relève de la confidentialité et se réduit par des réglages techniques, tandis que le second dépend de la standardisation des projets, différée en année 2. Un score égal ne vaut donc pas décision identique.
+\end{minipage}
+
+\subsection{Arbitrage sous plafond de \Plafond}
+
+Les montants viennent de \piece{P16} et des options \piece{T10}. Le lot de restauration de \acout{A05} n'est compté qu'une fois, car \piece{T10} précise qu'il s'agit de la même prestation que dans \piece{P16}. L'outillage quantitatif \piece{(A06)} et la détection outillée \piece{(A11)} sont des alternatives de \acout{A06} chacune, sans équivalence garantie. Nous les différons toutes deux. La mesure quantitative est une exigence du niveau 4 et serait prématurée pour des processus aux niveaux 1 et 2. Le besoin immédiat de traitement des alertes est couvert par la procédure de supervision \piece{(A02)}.
+
+{\footnotesize
+\setlength{\tabcolsep}{3pt}
+\begin{longtable}{@{}C{0.7cm} L{2.9cm} R{1.3cm} C{1.1cm} L{1.9cm} L{4.0cm} L{3.8cm}@{}}
+\caption{Plan d'action et arbitrage budgétaire (onglet 05)}\\
+\entete \hd{ID} & \hd{Mesure} & \hd{Coût} & \hd{Choix} & \hd{Pilote} & \hd{Échéance et livrable} & \hd{Justification} \\
+\endfirsthead
+\entete \hd{ID} & \hd{Mesure} & \hd{Coût} & \hd{Choix} & \hd{Pilote} & \hd{Échéance et livrable} & \hd{Justification} \\
+\endhead
+\lignes{tab_actions}
+\midrule
+& \textbf{Engagement total} & \textbf{\TotalRetenu} & & \multicolumn{3}{l}{Marge \Marge\ sur un plafond de \Plafond, statut « budget respecté »} \\
+\end{longtable}}
+
+Le choix privilégie les risques R01 et R02 et les processus les plus faibles, conformément au principe de la méthode qui consiste à faire progresser d'abord les processus de plus bas niveau. La segmentation complète \piece{(A10)} est la principale mesure différée. Ses effets les plus urgents sont obtenus sans coût externe par la restriction en régie de FW-31 et FW-17, hypothèse à confirmer avec la DSI. Les risques résiduels R04, R06 et la part de R02 liée au cloisonnement restent portés pendant douze mois et doivent être acceptés par écrit par la direction générale. La marge de \Marge\ couvre de petits imprévus et ne finance aucune mesure supplémentaire.
+
+\subsection{Feuille de route SSI sur douze mois}
+
+Cette feuille de route concerne MEDICA-SERVICES et ne doit pas être confondue avec le calendrier de production de notre projet présenté en section~\ref{sec:organisation}. Elle suppose une décision du CODIR à la mi-novembre 2026, le premier mois correspondant à décembre 2026.
+
+\begin{center}
+\input{figures/feuille_route.tex}
+\end{center}
+
+\begin{minipage}[t]{0.44\linewidth}
+\vspace{0pt}\small
+\begin{tabularx}{\linewidth}{@{}Y C{1.1cm} C{1.0cm} C{1.0cm} C{0.9cm}@{}}
+\entete \hd{Processus} & \hd{Actuel} & \hd{M6} & \hd{M12} & \hd{Cible} \\
+\lignes{tab_trajectoire}
+\end{tabularx}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.53\linewidth}
+\vspace{0pt}
+La progression est cumulative. Les six premiers mois portent la stratégie, les risques et la supervision au niveau 2, ce qui aligne les sept processus sur ce niveau. Le second semestre stabilise ces pratiques et prépare le niveau 3 pour les règles et l'exploitation, qui disposent déjà de textes et de comptes rendus réguliers. Le niveau 4 reste l'objectif à moyen terme et suppose une seconde enveloppe. Chaque palier sera validé par les preuves de clôture indiquées dans la grille et non par déclaration.
+\end{minipage}

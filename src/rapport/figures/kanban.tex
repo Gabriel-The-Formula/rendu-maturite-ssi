@@ -1,0 +1,15 @@
+% Kanban : projection du planning cible au 6 novembre 2026, pas un avancement constaté.
+% Changer la colonne d'une tâche dans scripts/donnees.py (dernier champ de TACHES) puis régénérer.
+\begin{tikzpicture}[font=\scriptsize,
+  carte/.style={draw=filet, fill=white, rounded corners=1.5pt, text width=27mm, inner sep=2.5pt, align=left, anchor=north}]
+  \def\kbw{3.3}\def\kbh{1.08}
+  \foreach \t [count=\i from 0] in {À faire, En cours, À relire, À corriger, Validé}{
+    \fill[grisclair, rounded corners=2pt] (\i*\kbw-1.55,0.45) rectangle (\i*\kbw+1.55,-8.85);
+    \node[font=\scriptsize\bfseries, text=accent] at (\i*\kbw,0.2) {\t};}
+  \foreach \i in {0,...,4}{\expandafter\gdef\csname kbn\i\endcsname{0}}
+  \newcommand\CarteKanban[4]{%
+    \pgfmathtruncatemacro\n{\csname kbn#1\endcsname+1}%
+    \expandafter\xdef\csname kbn#1\endcsname{\n}%
+    \node[carte] at (#1*\kbw,{-0.05-(\n-1)*\kbh}) {\textbf{#2} #3\\[-1pt]\textcolor{gris}{#4}};}
+  \input{donnees/kanban.tex}
+\end{tikzpicture}
