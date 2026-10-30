@@ -14,5 +14,7 @@
 \gantttitlelist{20,...,31}{1}\gantttitlelist{1,...,10}{1}\\
 \newcommand\TacheGantt[5]{\ganttbar[name=#1]{#1 #2 \textcolor{gris}{(#3)}}{#4}{#5}\\}
 \newcommand\JalonGantt[3]{\ganttmilestone[name=#1]{#1 #2}{#3}\\}
+% Dépendance début-début : du début de la barre amont au début de la barre aval
+\newcommand\LienDD[2]{\draw[gris, thin, -{Stealth[length=1.3mm]}] ([xshift=1.5pt]#1.south west) |- (#2.west);}
 \input{donnees/gantt_projet.tex}
 \end{ganttchart}

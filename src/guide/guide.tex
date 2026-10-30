@@ -123,19 +123,19 @@ Q01 Adhérence, \textbf{\qnote{Q01}} & L'activité est l'hébergement d'applicat
 Q02 Impacts internes, \textbf{\qnote{Q02}} & Fortes pertes contractuelles, départ de certains clients, poursuite de prestations manuelles (P04) & Les conséquences sont graves mais la DG ne décrit pas une faillite & Les mots « graves » et non « fatales » collent à P04 & Une étude financière montrant qu'une semaine d'arrêt menace la survie ferait passer à 3 \\
 Q03 Impacts externes, \textbf{\qnote{Q03}} & Erreurs d'orientation et de prise en charge de patients possibles (P05) & La sécurité de personnes chez des tiers est en jeu & La méthode précise que l'implication de tiers élève le niveau & Une analyse montrant des contrôles cliniques qui détectent toute erreur pourrait justifier 2. La somme ne changerait pas car Q01 vaut 3 \\
 Q04 Disponibilité, \textbf{\qnote{Q04}} & Une journée d'arrêt est grave, l'arrêt prolongé affecte la continuité des soins (P04, P05) & Grave pour l'activité, sans être présenté comme fatal & La notice met en garde contre le 3 donné parce que le SI est « important » & Un contrat avec pénalités mettant l'entreprise en péril \\
-Q05 Intégrité, \textbf{\qnote{Q05}} & Altération non détectée, erreurs de prise en charge (P05) & Pour un hébergeur de santé, une telle erreur détruirait la confiance des clients & Nous lisons l'impact comme potentiellement fatal & Choix discutable. Avec 2, la sensibilité resterait à 3 grâce à Q06 \\
-Q06 Confidentialité, \textbf{\qnote{Q06}} & Données de santé, risque « critique » selon la DSI, attaquants visant la revente (P05, P07) & La divulgation serait fatale à la relation client & Le mot « critique » de la DSI et la nature des données & Avec 2 pour Q05 et Q06, la somme passerait à 9, le niveau resterait 4 \\
+Q05 Intégrité, \textbf{\qnote{Q05}} & Altération non détectée, erreurs de prise en charge (P05) & L'impact est grave pour l'activité & Aucune pièce ne décrit l'altération comme fatale pour l'entreprise. Note cohérente avec Q02 et Q04 & Raisonner sur la sécurité des patients plutôt que sur l'activité justifierait 3, sans effet sur la somme car Q06 vaut 3 \\
+Q06 Confidentialité, \textbf{\qnote{Q06}} & Données de santé, risque « critique » selon la DSI, attaquants visant la revente (P05, P07) & La divulgation serait fatale à la relation client & Le mot « critique » de la DSI et la nature des données & Avec 2, la somme passerait à 9 et le niveau resterait 4 \\
 Q07 Fréquence, \textbf{\qnote{Q07}} & 10 événements en 12 mois (P06) & $10 / 4 = 2{,}5$ par trimestre & « Plusieurs sinistres par trimestre » & Le registre n'étant pas exhaustif, un recensement complet pourrait mener à 3 \\
 Q08 Motivation, \textbf{\qnote{Q08}} & Menaces « potentiellement fortement motivées » (P07) & Reprise presque littérale du texte & « La motivation peut être forte » & Une menace ciblée avérée contre l'entreprise ferait passer à 3 \\
 Q09 Moyens, \textbf{\qnote{Q09}} & P07 exclut seulement les moyens illimités & Le dossier ne dit rien de plus & Hypothèse d'auditeur, notée « incertain » & Sans effet sur le calcul, Q07 et Q08 fixant déjà le maximum à 2 \\
 Q10 Hétérogénéité, \textbf{\qnote{Q10}} & « Fortement hétérogène mais non extrêmement » (P08) & Reprise littérale & « Fortement hétérogène » & Aucune, la pièce tranche \\
-Q11 Ouverture, \textbf{\qnote{Q11}} & Portail sur Internet, interconnexions sous contrat (P03, P07) & Ouvert à l'extérieur, mais sous contrôle & « Ouvert à des systèmes externes sous contrôle » & Si les contrôles contractuels sont inopérants, 3, et la somme passe à 11, soit le niveau 5 \\
+Q11 Ouverture, \textbf{\qnote{Q11}} & Portail sur Internet, interconnexions sous contrat (P03, P07) & Ouvert à des internautes non maîtrisés, mais par une publication unique filtrée, et à des clients sous contrat & « Ouvert à des systèmes externes sous contrôle » & Si les contrôles contractuels sont inopérants, 3, et la somme passe à 11, soit le niveau 5 \\
 Q12 Variabilité, \textbf{\qnote{Q12}} & Changements mensuels et trimestriels, deux pannes dues aux changements (P06, P08) & Le SI bouge régulièrement & « Change relativement souvent » & Un gel des évolutions ferait baisser la note \\
 \end{longtable}}
 
 \subsection{Le calcul pas à pas}
 
-On prend le maximum de chaque famille. Pour les conséquences, $\max(3, 2, 3) = \MaxConseq$. Pour la sensibilité, $\max(2, 3, 3) = \MaxSensib$. Pour les menaces, $\max(2, 2, 2) = \MaxMenaces$. Pour les vulnérabilités, $\max(2, 2, 2) = \MaxVuln$. La somme vaut $3 + 3 + 2 + 2 = \SommeMaxima$, qui tombe dans la tranche de 9 à 10, d'où le niveau \NiveauCalcule. Sans ajustement, la cible est \Cible.
+On prend le maximum de chaque famille. Pour les conséquences, $\max(3, 2, 3) = \MaxConseq$. Pour la sensibilité, $\max(2, 2, 3) = \MaxSensib$. Pour les menaces, $\max(2, 2, 2) = \MaxMenaces$. Pour les vulnérabilités, $\max(2, 2, 2) = \MaxVuln$. La somme vaut $3 + 3 + 2 + 2 = \SommeMaxima$, qui tombe dans la tranche de 9 à 10, d'où le niveau \NiveauCalcule. Sans ajustement, la cible est \Cible.
 
 Dans l'Excel, la cellule B16 contient la formule suivante.
 \begin{center}\texttt{=SI(NB(C2:C4)<3;"";MAX(C2:C4))}\end{center}
@@ -143,7 +143,7 @@ Elle reste vide tant que les trois notes ne sont pas saisies, puis affiche le ma
 
 \subsection{Pourquoi ce résultat est robuste}
 
-Un bon réflexe à l'oral consiste à montrer que la conclusion ne dépend pas d'une seule note contestable. Si l'on baisse Q05 et Q06 à 2, la somme devient 9 et le niveau reste 4. Si l'on baisse Q03 à 2, rien ne change car Q01 vaut déjà 3. Pour tomber au niveau 3, il faudrait une somme de 8, par exemple en ramenant à 2 à la fois les conséquences et la sensibilité, ce que les pièces ne soutiennent pas. À l'inverse, la seule note qui ferait monter la cible à 5 est Q11 à 3, et nous expliquons pourquoi nous ne la retenons pas.
+Un bon réflexe à l'oral consiste à montrer que la conclusion ne dépend pas d'une seule note contestable. Si l'on baisse Q06 à 2, la somme devient 9 et le niveau reste 4. Si l'on baisse Q03 à 2, rien ne change car Q01 vaut déjà 3. Pour tomber au niveau 3, il faudrait une somme de 8, par exemple en ramenant à 2 à la fois les conséquences et la sensibilité, ce que les pièces ne soutiennent pas. À l'inverse, la seule note qui ferait monter la cible à 5 est Q11 à 3, et nous expliquons pourquoi nous ne la retenons pas.
 
 \subsection{L'ajustement}
 
@@ -154,7 +154,7 @@ La méthode laisse l'autorité responsable ajuster la cible d'un niveau, à cond
 
 \subsection{La grille des exigences}
 
-La méthode fournit un tableau croisant les exigences et les sept processus. Nous l'avons rempli à partir des pièces. Le symbole \Oui\ signifie démontré, \Non\ non établi, \Ind\ indéterminé faute de preuve, et \Ded\ déduit des pièces mais à confirmer. Un niveau n'est atteint que si toute sa colonne est démontrée jusqu'à lui.
+La méthode fournit un tableau croisant les exigences et les sept processus. Nous l'avons rempli à partir des pièces. Le symbole \Oui\ signifie démontré, \Non\ non établi, \Ind\ indéterminé faute de preuve, et \Ded\ déduit des pièces mais à confirmer. Un niveau n'est atteint que si toute sa colonne est démontrée jusqu'à lui. Deux critères sont appliqués de la même façon à tous les processus. Un compte rendu écrit des résultats vaut mesure qualitative, un compte rendu oral sans trace ne la vaut pas. La compétence est retenue lorsqu'un rôle chargé de la sécurité est désigné, ce qui reste à confirmer en entretien et explique le symbole \Ded\ de la conception.
 
 {\footnotesize
 \setlength{\tabcolsep}{2pt}
@@ -164,8 +164,8 @@ La méthode fournit un tableau croisant les exigences et les sept processus. Nou
 \rowcolor{grisclair}\multicolumn{8}{@{}l}{\textbf{Niveau 1}} \\
 Actions avec des pratiques de base & \Oui & \Oui & \Oui & \Oui & \Oui & \Oui & \Oui \\
 \rowcolor{grisclair}\multicolumn{8}{@{}l}{\textbf{Niveau 2}} \\
-Actions planifiées & \Oui & \Non & \Oui & \Non & \Oui & \Ded & \Oui \\
-Acteurs compétents en SSI & \Oui & \Oui & \Oui & \Oui & \Oui & \Oui & \Oui \\
+Actions planifiées & \Oui & \Non & \Oui & \Non & \Oui & \Ind & \Oui \\
+Acteurs compétents en SSI & \Oui & \Oui & \Oui & \Oui & \Ded & \Oui & \Oui \\
 Certaines pratiques formalisées & \Oui & \Non & \Oui & \Non & \Oui & \Oui & \Oui \\
 Mesures qualitatives & \Ind & \Non & \Oui & \Non & \Oui & \Oui & \Oui \\
 Autorités informées & \Oui & \Ind & \Oui & \Non & \Oui & \Oui & \Oui \\
@@ -177,7 +177,7 @@ L'organisme soutient le processus & \Ind & \Ind & \Ind & \Ind & \Ind & \Ind & \I
 \textbf{Niveau effectif démontré} & \textbf{\peff{Stratégie}} & \textbf{\peff{Risques}} & \textbf{\peff{Règles}} & \textbf{\peff{Supervision}} & \textbf{\peff{Conception}} & \textbf{\peff{Réalisation}} & \textbf{\peff{Exploitation}} \\
 \end{longtable}}
 
-Le niveau 3 est bloqué partout par la première exigence, car chaque pièce P09 à P15 dit explicitement que la pratique n'est pas un processus commun ou standardisé. Inutile donc de discuter les deux autres exigences du niveau 3. Aucun processus n'est à 0, car chacun montre au moins quelques actions de base.
+Le niveau 3 est bloqué partout par la première exigence. Chaque pièce P09 à P15 signale, sous une forme ou une autre, l'absence de processus commun. P09, P11, P13, P14 et P15 le disent directement, P10 évoque l'absence de méthode stable réutilisable et P12 l'absence de procédure commune. Inutile donc de discuter les deux autres exigences du niveau 3. Aucun processus n'est à 0, car chacun montre au moins quelques actions de base.
 
 \subsection{Chaque niveau expliqué}
 
@@ -189,15 +189,15 @@ Le niveau 3 est bloqué partout par la première exigence, car chaque pièce P09
 
 \textbf{Superviser la SSI, niveau \peff{Supervision}.} P12 décrit des outils et des alertes actifs, ce qui suffit au niveau 1. Mais il n'y a ni campagne de contrôle planifiée, ni reporting régulier, ni procédure commune. T08 illustre ce manque, l'alerte AL-1048 s'étant fermée seule. Attention au raisonnement, ce n'est pas l'alerte qui fixe le niveau 1, ce sont les exigences manquantes décrites en P12. L'alerte sert de corroboration.
 
-\textbf{Concevoir les mesures SSI, niveau \peff{Conception}.} P13 montre une fiche type, un responsable désigné, des revues planifiées pour les projets majeurs avec compte rendu et remontée au responsable. Le niveau 2 est atteint. La démarche n'est pas globale, d'où l'absence du niveau 3.
+\textbf{Concevoir les mesures SSI, niveau \peff{Conception}.} P13 montre une fiche type, un responsable technique désigné, des revues planifiées pour les projets majeurs avec un compte rendu écrit remonté au responsable. Selon nos deux critères, ce compte rendu vaut mesure qualitative et la désignation du responsable vaut compétence. Le niveau 2 est donc retenu. Un correcteur plus strict pourrait exiger une preuve explicite de compétence, et le niveau tomberait à 1. La démarche n'est pas globale, d'où l'absence du niveau 3.
 
-\textbf{Réaliser les mesures SSI, niveau \peff{Réalisation}.} P14 montre des techniciens compétents, des comptes rendus d'installation et de validation, un suivi régulier et l'information de la DSI. La pièce ne dit pas « planifié », elle dit « préparés » et « suivi régulier ». Nous en déduisons la planification, d'où le symbole \Ded. C'est une interprétation à confirmer par un échantillon de plans de déploiement. Si la planification n'était pas démontrée, le niveau tomberait à 1.
+\textbf{Réaliser les mesures SSI, niveau \peff{Réalisation}.} P14 montre des techniciens compétents, des comptes rendus d'installation et de validation, un suivi régulier et l'information de la DSI. Quatre exigences du niveau 2 sont donc couvertes. La pièce ne dit pas « planifié », elle dit que les déploiements sont « souvent préparés ». Une préparation fréquente n'est pas une planification démontrée. Nous retenons donc le niveau 1 et classons le niveau 2 comme indéterminé, exactement comme pour la stratégie. Un échantillon de plans de déploiement datés suffirait à le débloquer.
 
 \textbf{Exploiter les mesures SSI, niveau \peff{Exploitation}.} P15 couvre toutes les exigences du niveau 2 pour les sauvegardes. Les pièces T montrent pourtant des failles dans l'exploitation, avec 2 PV de restauration sur 9, 60 \% de MFA et des correctifs en retard. Le dossier interdit d'attribuer un niveau entier à partir d'un seul constat technique. Nous gardons donc 2 avec la mention « fragile » et nous utilisons ces constats pour bâtir le plan d'action.
 
 \subsection{Revendiqué, démontré, indéterminé}
 
-Le sujet demande de présenter séparément ces trois notions. Le niveau revendiqué est celui que l'organisme annonce. Aucune pièce n'annonce de niveau chiffré, d'où la mention « Non déclaré » dans la colonne B de l'onglet 02, comme le prévoit la notice. Les affirmations de P17 portent sur des pratiques, pas sur des niveaux, mais elles montrent que l'organisme se perçoit plus mature qu'il ne le prouve. Le niveau démontré est celui de la colonne C. Le niveau indéterminé correspond aux exigences marquées \Ind, en particulier le niveau 2 de la stratégie.
+Le sujet demande de présenter séparément ces trois notions. Le niveau revendiqué est celui que l'organisme annonce. Aucune pièce n'annonce de niveau chiffré, d'où la mention « Non déclaré » dans la colonne B de l'onglet 02, comme le prévoit la notice. Les affirmations de P17 portent sur des pratiques, pas sur des niveaux, mais elles montrent que l'organisme se perçoit plus mature qu'il ne le prouve. Le niveau démontré est celui de la colonne C. Le niveau indéterminé correspond aux exigences marquées \Ind, en particulier le niveau 2 de la stratégie et celui de la réalisation.
 
 La colonne F de l'onglet 02 calcule automatiquement l'écart \texttt{MAX(0; cible - niveau)}. Avec une cible de 4, on obtient 3 pour les processus au niveau 1 et 2 pour ceux au niveau 2. La notice rappelle que cet écart n'est pas une mesure de risque. Il dit combien de marches il reste à gravir, pas l'urgence de le faire. Une cellule C vide signifierait « non positionné faute de preuve », ce qui est différent de 0. Nous n'avons laissé aucune cellule vide car le niveau 1 est démontré partout.
 
@@ -206,15 +206,15 @@ La colonne F de l'onglet 02 calcule automatiquement l'écart \texttt{MAX(0; cibl
 
 \subsection{T1, lire une matrice de flux}
 
-On commence par dessiner les zones et les flux à partir de T01 et T02, ce que fait la figure du rapport. On qualifie ensuite chaque règle. Une règle est douteuse lorsqu'elle est plus large que le besoin, qu'elle n'a pas de justification ou qu'elle contourne un contrôle. FW-31 cumule les trois défauts, car elle autorise tout trafic des postes vers les sauvegardes sans justification. FW-17 contourne le bastion. FW-19 est large et FW-08 n'est pas vérifiée. La règle d'or du sujet est de ne jamais conclure qu'un port ouvert est une faille exploitée. Le scan de WEB01 montre 80 et 443 ouverts, ce qui est normal pour un portail, et ne prouve aucune attaque. Les contrôles complémentaires proposés visent tous à obtenir une preuve, comme des journaux de trafic, une date d'expiration ou un test de segmentation.
+On commence par dessiner les zones et les flux à partir de T01 et T02, ce que fait la figure du rapport. On qualifie ensuite chaque règle. Une règle est douteuse lorsqu'elle est plus large que le besoin, qu'elle n'a pas de justification ou qu'elle contourne un contrôle. FW-31 cumule les trois défauts, car elle autorise tout trafic des postes vers les sauvegardes sans justification. FW-17 contourne le bastion. FW-19 est large et FW-08 n'est pas vérifiée. FW-23 autorise tout le VLAN 20 vers DB01 alors que T01 place DB01 dans ce même VLAN, ce qui demande de vérifier l'emplacement réel de la base. La règle d'or du sujet est de ne jamais conclure qu'un port ouvert est une faille exploitée. Le scan de WEB01, réalisé depuis la DMZ et non depuis Internet, montre 80 et 443 ouverts, ce qui est normal pour un portail et ne prouve aucune attaque. La vue depuis Internet se déduit des règles et devra être confirmée par un scan externe. Les contrôles complémentaires proposés visent tous à obtenir une preuve, comme des journaux de trafic, une date d'expiration ou un test de segmentation.
 
 \subsection{T2, calculer la couverture MFA}
 
-Le calcul de base est $6 / 10 = 60\,\%$ sur le périmètre de l'export. Deux variantes aident à raisonner. Si svc-backup est réellement non interactif, la MFA ne s'y applique pas de la même façon et la couverture des comptes interactifs devient $6 / 9 \approx 66{,}7\,\%$. Si l'on désactive admin-old, qui n'a plus de raison d'être, on obtient $6 / 8 = 75\,\%$. Il faut donc encore traiter admin-presta et admin-db pour atteindre 100 \%. Ces variantes ne remplacent pas le chiffre officiel de 60 \%, elles montrent le chemin pour le corriger. La comparaison avec P03 confirme le chiffre et la comparaison avec P17 révèle une affirmation inexacte de la DSI. Le sujet demande des preuves de clôture, et la plus forte est un export exhaustif refait après correction, accompagné des exceptions signées.
+Le calcul de base est $6 / 10 = 60\,\%$ sur le périmètre de l'export. Deux variantes aident à raisonner. Si svc-backup est réellement non interactif, la MFA ne s'y applique pas de la même façon et la couverture des comptes interactifs devient $6 / 9 \approx 66{,}7\,\%$. Si l'investigation conduit à désactiver admin-old, on obtient $6 / 8 = 75\,\%$. Il faut donc encore traiter admin-presta et admin-db pour atteindre 100 \%. Ces variantes ne remplacent pas le chiffre officiel de 60 \%, elles montrent le chemin pour le corriger. La comparaison avec P03 confirme le chiffre et la comparaison avec P17 révèle une affirmation inexacte de la DSI. Attention au vocabulaire, T04 parle de comptes enrôlés. Sans la politique d'accès conditionnel, on ne sait pas si le second facteur est réellement imposé. Le sujet demande des preuves de clôture, et la plus forte est un export exhaustif refait après correction, accompagné des exceptions signées.
 
 \subsection{T3, passer du CVSS au risque}
 
-Le score CVSS est une donnée de travail, pas un classement. Pour prioriser, nous croisons quatre éléments, le score, l'exposition, la criticité métier et l'existence de mesures compensatoires. APP01 a le score le plus élevé, 9,8, une criticité critique et 74 jours de retard. Il n'est pas exposé directement mais reste joignable depuis WEB01 et par la règle RDP FW-17. Il passe donc en priorité 1. WEB01 est exposé à Internet mais son constat, TLS 1.0, est peu grave si la redirection vers HTTPS fonctionne, d'où une priorité modérée. On voit qu'un actif exposé n'est pas forcément prioritaire et qu'un actif interne peut l'être. Pour AD01, l'agent indique 0 jour de retard, mais l'inventaire date du 25 septembre, soit 17 jours avant la date de contrôle du 12 octobre. Nous demandons donc un inventaire récent plutôt que de conclure.
+Le score CVSS est une donnée de travail, pas un classement. Pour prioriser, nous croisons quatre éléments, le score, l'exposition, la criticité métier et l'existence de mesures compensatoires. APP01 a le score le plus élevé, 9,8, une criticité critique et un hôte en retard de correctifs de 74 jours. T06 donne ce retard par hôte, la date du correctif critique lui-même n'étant pas fournie. Il n'est pas exposé directement mais reste joignable depuis WEB01 et par la règle RDP FW-17. Il passe donc en priorité 1. WEB01 est exposé à Internet mais son constat, TLS 1.0, est peu grave si la redirection vers HTTPS fonctionne, d'où une priorité modérée. On voit qu'un actif exposé n'est pas forcément prioritaire et qu'un actif interne peut l'être. Pour AD01, l'agent indique 0 jour de retard, mais l'inventaire date du 25 septembre, soit 17 jours avant la date de contrôle du 12 octobre. Nous demandons donc un inventaire récent plutôt que de conclure.
 
 \subsection{T4, bâtir une chronologie neutre}
 
@@ -241,13 +241,13 @@ Chaque risque reçoit une décision parmi quatre possibles. Réduire signifie in
 
 Le plafond est de \Plafond. Les montants viennent de P16 et de T10, et deux pièges sont signalés par le dossier. Le lot de restauration à \acout{A05} apparaît dans P16 et dans T10 mais c'est la même prestation, à ne compter qu'une fois. L'outillage quantitatif de P16 et la détection de T10, à \acout{A06} chacun, sont des alternatives sans équivalence garantie, et il faut expliquer son choix.
 
-Notre raisonnement suit l'ordre des risques. On retient d'abord A08 (MFA, \acout{A08}) et A05 (restauration, \acout{A05}) pour R01 et R02, soit 50\,000\,€. On ajoute A01 (registre des risques, \acout{A01}) et A02 (supervision, \acout{A02}), qui font progresser les deux processus au niveau 1 et traitent la cause de l'alerte ignorée, soit 84\,000\,€ au total. On ajoute A09 (correctifs, \acout{A09}) pour R03, ce qui porte le total à 102\,000\,€. Il reste 18\,000\,€. La segmentation A10 coûte 30\,000\,€ et dépasserait le plafond. A03 (PSSI et sensibilisation, \acout{A03}) tient dans l'enveloppe et répond à l'hameçonnage, qui représente la moitié des événements de P06, ainsi qu'à la revue de PSSI sans PV. Le total atteint \TotalRetenu, avec une marge de \Marge.
+Notre raisonnement suit l'ordre des risques. On retient d'abord A08 (MFA, \acout{A08}) et A05 (restauration, \acout{A05}) pour R01 et R02, soit 50\,000\,€. On ajoute A01 (registre des risques, \acout{A01}) et A02 (supervision, \acout{A02}), qui font progresser les deux processus au niveau 1 et traitent l'absence d'examen tracé de l'alerte, soit 84\,000\,€ au total. On ajoute A09 (correctifs, \acout{A09}) pour R03, ce qui porte le total à 102\,000\,€. Il reste 18\,000\,€. La segmentation A10 coûte 30\,000\,€ et dépasserait le plafond. A03 (PSSI et sensibilisation, \acout{A03}) tient dans l'enveloppe et répond à l'hameçonnage, qui représente la moitié des événements de P06, ainsi qu'à la revue de PSSI sans PV. Le total atteint \TotalRetenu, avec une marge de \Marge.
 
 Dans l'Excel, la cellule C16 contient la formule \texttt{=SOMMEPROD(D2:D12;G2:G12)}, qui multiplie chaque coût par 1 ou 0 selon la colonne G puis additionne, ce qui revient à additionner les coûts des actions retenues. C17 calcule la marge, plafond moins total, et C18 affiche « BUDGET RESPECTÉ » si le total ne dépasse pas le plafond. Le calcul se vérifie à la main, $18 + 16 + 14 + 22 + 28 + 18 = 116$ milliers d'euros.
 
 \encadre{Choix discutable.}{On pourrait préférer A10, la segmentation, à A02 et A03 réunis, qui coûtent ensemble 30\,000\,€. C'est l'exemple de calcul donné dans la notice. Nous ne l'avons pas retenu car la supervision est au niveau 1, que la méthode conseille de faire progresser d'abord les processus les plus faibles, et que les deux règles les plus dangereuses, FW-31 et FW-17, peuvent être restreintes en régie sans attendre le projet complet. Ce dernier point est une hypothèse à confirmer avec la DSI.}
 
-Les mesures différées sont A04, A06, A07, A10 et A11. Chacune laisse un risque résiduel qu'il faut nommer. Le report de A10 laisse R04 et une partie de R02, le report de A04 laisse R06. Ces risques doivent être acceptés par écrit par la direction, ce qui transforme un manque de budget en décision assumée.
+Les mesures différées sont A04, A06, A07, A10 et A11. Chacune laisse un risque résiduel qu'il faut nommer. Le report de A10 laisse R04 et une partie de R02, le report de A04 laisse R06. Le report de A11 limite la détection outillée sur R01, compensée en partie par A02. Le report de A06 prive le pilotage d'indicateurs chiffrés, celui de A07 expose à une adhésion insuffisante aux nouvelles pratiques. Ces risques doivent être acceptés par écrit par la direction, ce qui transforme un manque de budget en décision assumée.
 
 \subsection{Les preuves de clôture}
 
@@ -255,7 +255,7 @@ Une action n'est terminée que si l'on peut le prouver. Pour chaque constat, la 
 
 \subsection{La trajectoire sur douze mois}
 
-La méthode recommande de progresser d'un niveau à la fois en commençant par les processus les plus faibles. Les six premiers mois portent donc la stratégie, les risques et la supervision au niveau 2, ce qui aligne les sept processus. Le second semestre stabilise et prépare le niveau 3 pour les règles et l'exploitation, qui ont déjà des textes et des comptes rendus réguliers. La cible 4 reste un objectif à moyen terme. Il ne faut pas confondre cette feuille de route, qui concerne MEDICA-SERVICES, avec le calendrier de production du projet étudiant, qui court du 20 octobre au 10 novembre 2026.
+La méthode recommande de progresser d'un niveau à la fois en commençant par les processus les plus faibles. Les six premiers mois portent donc la stratégie, les risques, la supervision et la réalisation au niveau 2, ce qui aligne les sept processus. L'étape de la stratégie est rattachée à A01 et celle de la réalisation à un plan de déploiement établi en régie. Le second semestre stabilise et prépare, sans l'atteindre, le niveau 3 des règles et de l'exploitation, qui exige une standardisation commune à tout l'organisme. Les mesures conservatoires sur AL-1048, FW-31 et FW-17 ne suivent pas ce calendrier et sont à engager dès la remise du rapport. La cible 4 reste un objectif à moyen terme. Il ne faut pas confondre cette feuille de route, qui concerne MEDICA-SERVICES, avec le calendrier de production du projet étudiant, qui court du 20 octobre au 10 novembre 2026.
 
 %======================================================================
 \section{La grille Excel, onglet par onglet}
@@ -268,21 +268,21 @@ L'onglet 03 contient onze constats. Les cinq premiers étaient préamorcés et o
 
 L'onglet 04 contient six risques. Les colonnes G et H acceptent les valeurs 1 à 4 et la colonne I calcule le score. Les lignes R07 à R10 restent vides et leur formule affiche une cellule vide.
 
-L'onglet 05 conserve les coûts préremplis, que le script de génération vérifie un par un. Les colonnes E, F, G et H sont complétées et la colonne G vaut 1 pour les six actions retenues.
+L'onglet 05 conserve les coûts préremplis, vérifiés un par un. Les colonnes E, F, G et H sont complétées et la colonne G vaut 1 pour les six actions retenues.
 
 L'onglet 06 est laissé vierge, car il est réservé à l'enseignant. Ses formules affichent 0 tant que la colonne D n'est pas remplie.
 
-Les valeurs du rapport et de l'Excel viennent d'un même fichier source, \texttt{scripts/donnees.py}, ce qui garantit leur concordance. La grille a été recalculée avec LibreOffice pour vérifier qu'aucune formule ne renvoie d'erreur.
+Les valeurs du rapport et de l'Excel ont été contrôlées pour être identiques, et la grille a été recalculée pour vérifier qu'aucune formule ne renvoie d'erreur.
 
 %======================================================================
 \section{L'organisation du projet}
 
-Le Gantt montre les fenêtres de travail de chaque membre, les dépendances et quatre jalons. Les barres ne signifient pas un travail à plein temps, mais la période pendant laquelle la tâche doit avancer. Le Kanban reprend exactement les mêmes identifiants E1 à E18. Il montre où chaque tâche devrait se trouver le 6 novembre si le planning est tenu. Ce n'est pas un état réel, et l'avancement effectif reste à renseigner par l'équipe. Pour le mettre à jour, il suffit de changer la colonne de la tâche dans \texttt{scripts/donnees.py} puis de régénérer.
+Le Gantt montre les fenêtres de travail de chaque membre, les dépendances et quatre jalons. Les barres ne signifient pas un travail à plein temps, mais la période pendant laquelle la tâche doit avancer. Le Kanban reprend exactement les mêmes identifiants E1 à E18. Le Gantt décrit le planning cible, le Kanban décrit l'avancement attesté. Comme aucun avancement n'a été documenté, le Kanban montre son état initial du 20 octobre, toutes les cartes étant dans « À faire ». L'équipe déplace ensuite chaque carte au fil des preuves de réalisation. Les dépendances sont de type début-début. Une tâche aval démarre après le début de la tâche dont elle dépend et se termine après elle, ce qui explique les chevauchements, par exemple la rédaction qui commence avant la fin de la corrélation.
 
 {\footnotesize
 \setlength{\tabcolsep}{3pt}
 \begin{longtable}{@{}C{0.8cm} L{4.8cm} L{1.4cm} L{2.4cm} L{2.4cm} L{1.7cm} L{2.2cm}@{}}
-\entete \hd{ID} & \hd{Tâche} & \hd{Pilote} & \hd{Fenêtre} & \hd{Dépend de} & \hd{Kanban au 06/11} & \hd{État attesté} \\
+\entete \hd{ID} & \hd{Tâche} & \hd{Pilote} & \hd{Fenêtre} & \hd{Dépend de} & \hd{Kanban} & \hd{État attesté} \\
 \endhead
 \lignes{tab_taches}
 \end{longtable}}
@@ -295,12 +295,13 @@ Le Gantt montre les fenêtres de travail de chaque membre, les dépendances et q
 \begin{longtable}{@{}L{4.2cm} L{6cm} L{6cm}@{}}
 \entete \hd{Choix retenu} & \hd{Alternative défendable} & \hd{Effet sur les résultats} \\
 \endhead
-Q05 à 3 & Q05 à 2, l'altération étant grave sans être fatale pour l'activité & Aucun, Q06 maintient la sensibilité à 3 \\
+Q05 à 2 & Q05 à 3 si l'on raisonne sur la sécurité des patients & Aucun, Q06 maintient la sensibilité à 3 \\
 Q09 à 2 & Q09 à 1, faute d'information sur les moyens & Aucun, le maximum des menaces reste 2 \\
 Q11 à 2 & Q11 à 3 si l'on juge Internet hors de contrôle & La somme passe à 11 et la cible à 5 \\
 Ajustement à 0 & Ajustement de $-1$ au vu de la taille de l'entreprise & Cible 3, écarts réduits d'un niveau \\
 Stratégie au niveau 1 & Niveau 2 si le compte rendu oral vaut mesure qualitative & Écart de 2 au lieu de 3 \\
-Réalisation au niveau 2 & Niveau 1 si la planification n'est pas prouvée & Écart de 3 au lieu de 2 \\
+Réalisation au niveau 1 & Niveau 2 si l'on admet que « souvent préparés » vaut planification & Écart de 2 au lieu de 3 \\
+Conception au niveau 2 & Niveau 1 si la compétence doit être prouvée explicitement & Écart de 3 au lieu de 2 \\
 Exploitation au niveau 2 « fragile » & Niveau 1 si l'on considère que les constats T annulent le niveau & Contraire à la règle du dossier sur les constats isolés \\
 Cotations des risques & Autres valeurs selon l'appréciation de l'impact & Ordre de priorité possiblement modifié, sans changer R01 et R02 en tête \\
 A02 et A03 plutôt que A10 & A10 retenue à la place & Même total de 116\,000\,€, supervision non traitée \\
@@ -322,7 +323,7 @@ L'entreprise est-elle au niveau 4 ? & Non. Le niveau 4 est sa cible, calculée �
 Pourquoi pas une intrusion confirmée le 9 octobre ? & Les journaux ne sont pas certifiés, il n'y a ni trace MFA ni entretien avec le titulaire, et une opération légitime reste possible. Nous prescrivons une investigation et des mesures conservatoires. \\
 Pourquoi APP01 avant WEB01 alors que WEB01 est exposé ? & Le CVSS ne suffit pas. APP01 est critique, très en retard, joignable depuis la DMZ et par RDP. Le constat de WEB01 est moins grave si la redirection fonctionne. \\
 Pourquoi ne pas retenir la segmentation ? & Le plafond ne le permet pas sans sacrifier la supervision, au niveau 1. Les deux règles dangereuses sont restreintes en régie et le risque résiduel est accepté par la DG. \\
-Pourquoi la stratégie au niveau 1 ? & Toutes les exigences du niveau 2 doivent être démontrées. Aucune mesure qualitative n'est produite et le compte rendu est oral. Le niveau 2 est indéterminé, pas exclu. \\
+Pourquoi la stratégie au niveau 1 ? & Toutes les exigences du niveau 2 doivent être démontrées. Aucune mesure qualitative n'est documentée et le compte rendu est oral. Le niveau 2 est indéterminé, pas exclu. \\
 Pourquoi ne pas mettre l'exploitation à 1 vu les constats ? & Le dossier interdit d'attribuer un niveau entier à partir d'un constat isolé. Les exigences du niveau 2 sont couvertes par P15. Nous qualifions le niveau de fragile. \\
 Que vaut la déclaration de la DG sur les tests trimestriels ? & Elle n'est pas démontrée, 2 PV sur 9. L'absence de PV ne prouve pas l'absence de test, d'où la demande des PV manquants. \\
 Que reste-t-il après le plan ? & R04 et R06, et une part de R02 liée au cloisonnement. Ils sont acceptés pour 12 mois et réexaminés au bilan annuel. \\

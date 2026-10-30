@@ -4,7 +4,7 @@
 
 1. Sur Overleaf, cliquer sur **Nouveau projet > Importer un projet (Upload Project)** et choisir l'archive ZIP telle quelle, sans la décompresser.
 2. Ouvrir **Menu**, régler **Compilateur** sur **XeLaTeX** et **Document principal** sur `main.tex`.
-3. Cliquer sur **Recompiler**. Le rapport compte 13 pages.
+3. Cliquer sur **Recompiler**. Le rapport compte 14 pages.
 
 Le moteur de référence est **XeLaTeX**. Le fichier `latexmkrc` demande aussi XeLaTeX. La compilation a été vérifiée avec XeTeX (Tectonic). Le préambule prévoit le cas pdfLaTeX, mais ce moteur n'a pas été testé.
 

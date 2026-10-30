@@ -241,7 +241,7 @@ def generer_tex(k):
         a, b = (date(d0) - debut).days + 1, (date(d1) - debut).days + 1
         lignes.append(f"\\TacheGantt{{{tid}}}{{{tex(lib)}}}{{{tex(resp)}}}{{{a}}}{{{b}}}\n")
         for dep in deps:
-            liens.append(f"\\ganttlink{{{dep}}}{{{tid}}}\n")
+            liens.append(f"\\LienDD{{{dep}}}{{{tid}}}\n")
     for jid, lib, d in D.JALONS:
         a = (date(d) - debut).days + 1
         lignes.append(f"\\JalonGantt{{{jid}}}{{{tex(lib)}}}{{{a}}}\n")
@@ -259,7 +259,7 @@ def generer_tex(k):
     lignes = []
     for tid, lib, resp, d0, d1, deps, col in D.TACHES:
         f = lambda s: date(s).strftime("%d/%m")
-        lignes.append(f"{tid} & {tex(lib)} & {tex(resp)} & {f(d0)} au {f(d1)} & {', '.join(deps) or '·'} & {tex(col)} & à renseigner \\\\\n")
+        lignes.append(f"{tid} & {tex(lib)} & {tex(resp)} & {f(d0)} au {f(d1)} & {', '.join(deps) or '·'} & {tex(col)} (initial) & à renseigner \\\\\n")
     ecrire("tab_taches.tex", "".join(lignes))
 
 
