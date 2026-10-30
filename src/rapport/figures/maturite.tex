@@ -1,17 +1,14 @@
-% Niveaux effectifs démontrés, trajectoire à 12 mois et niveau adéquat (données : scripts/donnees.py)
-\begin{tikzpicture}
-\begin{axis}[
-  xbar, width=0.9\linewidth, height=5.4cm, bar width=7pt,
-  xmin=0, xmax=5, xtick={0,1,2,3,4,5}, xlabel={\footnotesize Niveau de maturité},
-  ytick={1,...,\MaturiteNb}, yticklabels/.expanded={\MaturiteNoms}, y dir=reverse, ymin=0.5, ymax=\MaturiteNb+0.5,
-  yticklabel style={font=\footnotesize}, xticklabel style={font=\footnotesize},
-  axis lines*=left, xmajorgrids, grid style={draw=filet},
-    legend style={font=\scriptsize, draw=none, at={(0.5,1.02)}, anchor=south, legend columns=-1},
-]
-\MaturitePlot
-\addlegendentry{niveau démontré}
-\draw[alerte, thick, dashed] (axis cs:\Cible,0.5) -- (axis cs:\Cible,\MaturiteNb+0.5);
-\addlegendimage{alerte, thick, dashed}
-\addlegendentry{niveau adéquat (cible \Cible)}
-\end{axis}
+% Niveau démontré, trajectoire à 12 mois et niveau adéquat par processus (onglet 02, feuille de route)
+\begin{tikzpicture}[x=1.0cm, y=0.62cm, font=\scriptsize]
+  \foreach \x in {0,...,5}{\draw[filet] (\x*2.2,0.4) -- (\x*2.2,-7.3); \node[text=gris] at (\x*2.2,-7.65) {\x};}
+  \node[text=gris] at (5.5,-8.2) {niveau de maturité DCSSI};
+  \foreach \p [count=\i] in \ProcCourts{\node[anchor=east] at (-0.15,-\i+0.5) {\p};}
+  \foreach \e [count=\i] in \Effectifs{\fill[accent] (0,-\i+0.75) rectangle (\e*2.2,-\i+0.25);}
+  \foreach \mm/\dd [count=\i] in \TrajM{\fill[vert!70] (0,-\i+0.2) rectangle (\dd*2.2,-\i-0.05);}
+  \draw[alerte, thick, dashed] (\Cible*2.2,0.4) -- (\Cible*2.2,-7.3);
+  \node[alerte, font=\scriptsize\bfseries, fill=white, inner sep=1pt] at (\Cible*2.2,0.75) {niveau adéquat \Cible};
+  \node[anchor=north west, align=left] at (11.3,-0.2) {%
+    \tikz\fill[accent] (0,0) rectangle (0.5,0.2); démontré aujourd'hui\\[2pt]
+    \tikz\fill[vert!70] (0,0) rectangle (0.5,0.2); visé à 12 mois\\[2pt]
+    \tikz\draw[alerte, thick, dashed] (0,0) -- (0.5,0); cible};
 \end{tikzpicture}

@@ -2,8 +2,8 @@
 \begin{tikzpicture}[x=9mm,y=7mm,font=\scriptsize]
   \foreach \v in {1,...,4}{\foreach \i in {1,...,4}{
     \pgfmathtruncatemacro\s{\v*\i}
-    \ifnum\s>8 \def\c{alerte!22}\else\ifnum\s>4 \def\c{ambre!22}\else\def\c{vert!15}\fi\fi
-    \fill[\c] (\v-1,\i-1) rectangle (\v,\i);
+    \ifnum\s>8 \def\kcol{alerte!22}\else\ifnum\s>4 \def\kcol{ambre!22}\else\def\kcol{vert!15}\fi\fi
+    \fill[\kcol] (\v-1,\i-1) rectangle (\v,\i);
     \draw[white, line width=1pt] (\v-1,\i-1) rectangle (\v,\i);
     \node[gris, anchor=north east, font=\tiny] at (\v,\i) {\s};}}
   \newcommand\RisqueCase[3]{\node[font=\scriptsize\bfseries, align=center, text width=8mm] at (#1-0.5,#2-0.5) {#3};}

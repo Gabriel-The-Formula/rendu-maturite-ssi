@@ -1,0 +1,34 @@
+% Arbitrage sous plafond (P16, T10, onglet 05), en milliers d'euros
+\begin{tikzpicture}[font=\scriptsize, x=0.118cm]
+  % échelle
+  \foreach \v in {0,20,...,140}{\draw[filet] (\v,0.55) -- (\v,-2.1); \node[text=gris] at (\v,-2.35) {\v};}
+  \node[text=gris] at (70,-2.75) {milliers d'euros};
+  % plafond
+  \draw[alerte, thick] (\PlafondK,0.75) -- (\PlafondK,-2.1); \node[alerte, font=\scriptsize\bfseries, above] at (\PlafondK,0.75) {plafond \PlafondK};
+  % retenues
+  \node[anchor=east, font=\scriptsize\bfseries] at (-1,0) {Retenu};
+  \def\pos{0}
+  \foreach \id/\k/\lib [count=\i] in \BudgetRetenu{
+    \pgfmathsetmacro\deb{\pos}\pgfmathsetmacro\fin{\pos+\k}
+    \pgfmathtruncatemacro\alt{mod(\i,2)}
+    \ifnum\alt=1 \def\kcol{vert}\else\def\kcol{vert!70}\fi
+    \fill[\kcol] (\deb,-0.35) rectangle (\fin,0.35);
+    \node[text=white, font=\scriptsize\bfseries] at ({(\deb+\fin)/2},0.08) {\id};
+    \node[text=white, font=\tiny] at ({(\deb+\fin)/2},-0.18) {\k};
+    \xdef\pos{\fin}}
+  \fill[pattern=north east lines, pattern color=gris] (\pos,-0.35) rectangle (\PlafondK,0.35);
+  \draw[gris] (\pos,-0.35) rectangle (\PlafondK,0.35);
+  \node[anchor=west, font=\scriptsize] at (121,0) {\BudgetK\ engagés, marge \MargeK};
+  % différées
+  \node[anchor=east, font=\scriptsize\bfseries] at (-1,-1.35) {Différé};
+  \def\pos{0}
+  \foreach \id/\k/\lib [count=\i] in \BudgetDiffere{
+    \pgfmathsetmacro\deb{\pos}\pgfmathsetmacro\fin{\pos+\k}
+    \pgfmathtruncatemacro\alt{mod(\i,2)}
+    \ifnum\alt=1 \def\kcol{gris!45}\else\def\kcol{gris!28}\fi
+    \fill[\kcol] (\deb,-1.7) rectangle (\fin,-1.0);
+    \node[font=\scriptsize\bfseries] at ({(\deb+\fin)/2},-1.27) {\id};
+    \node[font=\tiny] at ({(\deb+\fin)/2},-1.53) {\k};
+    \xdef\pos{\fin}}
+  \node[anchor=west, font=\scriptsize] at (\pos+1,-1.35) {\DiffereK\ reportés en année 2};
+\end{tikzpicture}

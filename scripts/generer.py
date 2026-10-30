@@ -234,33 +234,85 @@ def generer_tex(k):
         lignes.append(f"{tex(nom)} & {eff} & {m6} & {m12} & {k['cible']} \\\\\n")
     ecrire("tab_trajectoire.tex", "".join(lignes))
 
-    # Gantt du projet
+    # Couleurs des responsables
+    ecrire("couleurs.tex", "".join(f"\\definecolor{{resp{n}}}{{HTML}}{{{c}}}\n" for n, c in D.COULEURS.items()))
+
+    # Gantt du projet (groupé par phase, couleur par responsable, liens fin-début)
     debut = date("2026-10-20")
-    lignes, liens = [], []
-    for tid, lib, resp, d0, d1, deps, _ in D.TACHES:
-        a, b = (date(d0) - debut).days + 1, (date(d1) - debut).days + 1
-        lignes.append(f"\\TacheGantt{{{tid}}}{{{tex(lib)}}}{{{tex(resp)}}}{{{a}}}{{{b}}}\n")
-        for dep in deps:
-            liens.append(f"\\LienDD{{{dep}}}{{{tid}}}\n")
+    jour = lambda d: (date(d) - debut).days + 1
+    lignes = []
+    for phase in D.PHASES:
+        taches = [t for t in D.TACHES if t[6] == phase]
+        lignes.append(f"\\PhaseGantt{{{tex(phase)}}}{{{min(jour(t[3]) for t in taches)}}}{{{max(jour(t[4]) for t in taches)}}}\n")
+        for tid, lib, resp, d0, d1, deps, _ in taches:
+            lignes.append(f"\\TacheGantt{{{tid}}}{{{tex(lib)}}}{{{tex(resp)}}}{{{jour(d0)}}}{{{jour(d1)}}}\n")
     for jid, lib, d in D.JALONS:
-        a = (date(d) - debut).days + 1
-        lignes.append(f"\\JalonGantt{{{jid}}}{{{tex(lib)}}}{{{a}}}\n")
-    ecrire("gantt_projet.tex", "".join(lignes) + "".join(liens))
+        lignes.append(f"\\JalonGantt{{{jid}}}{{{tex(lib)}}}{{{jour(d)}}}\n")
+    liens = "".join(f"\\ganttlink{{{a_}}}{{{b_}}}\n" for a_, b_ in D.LIENS_GANTT)
+    ecrire("gantt_projet.tex", "".join(lignes) + liens + f"\\def\\JourKanban{{{jour(D.DATE_KANBAN)}}}\n")
 
-    # Kanban projeté
+    # Kanban : état attesté
     colonnes = ["À faire", "En cours", "À relire", "À corriger", "Validé"]
+    f = lambda s: date(s).strftime("%d/%m")
     lignes = []
-    for tid, lib, resp, *_rest, col in D.TACHES:
-        assert col in colonnes, col
-        lignes.append(f"\\CarteKanban{{{colonnes.index(col)}}}{{{tid}}}{{{tex(lib)}}}{{{tex(resp)}}}\n")
+    for tid, lib, resp, d0, d1, deps, _ in D.TACHES:
+        col, note = D.KANBAN[tid]
+        lignes.append(f"\\CarteKanban{{{colonnes.index(col)}}}{{{tid}}}{{{tex(lib)}}}{{{tex(resp)}}}{{{f(d0)}–{f(d1)}}}{{{tex(note)}}}\n")
+    compte = {c: sum(1 for v in D.KANBAN.values() if v[0] == c) for c in colonnes}
     ecrire("kanban.tex", "".join(lignes))
+    ecrire("kanban_comptes.tex", "\\def\\KanbanComptes{" + ",".join(f"{tex(c)}/{n}" for c, n in compte.items()) + "}\n")
 
-    # Tableau des tâches (correspondance Gantt et Kanban)
+    # Tableau des tâches (annexe)
     lignes = []
-    for tid, lib, resp, d0, d1, deps, col in D.TACHES:
-        f = lambda s: date(s).strftime("%d/%m")
-        lignes.append(f"{tid} & {tex(lib)} & {tex(resp)} & {f(d0)} au {f(d1)} & {', '.join(deps) or '·'} & {tex(col)} (initial) & à renseigner \\\\\n")
+    for tid, lib, resp, d0, d1, deps, phase in D.TACHES:
+        col, note = D.KANBAN[tid]
+        etat = tex(col) + (f" ({tex(note)})" if note else "")
+        lignes.append(f"{tid} & {tex(lib)} & {tex(resp)} & {f(d0)} au {f(d1)} & {', '.join(deps) or '·'} & {etat} \\\\\n")
     ecrire("tab_taches.tex", "".join(lignes))
+
+    # Tableaux courts du corps du rapport
+    ecrire("tab_questions_court.tex", "".join(
+        f"{q[0]} & {tex(q[1])} & \\textbf{{{q[2]}}} & {tex(q[3])} & {tex(q[5])} \\\\\n" for q in D.QUESTIONS))
+    ecrire("tab_risques_court.tex", "".join(
+        f"{r['id']} & {tex(r['court'])} & {tex(r['actif'])} & {r['impact']} & {r['vrais']} & \\textbf{{{r['impact'] * r['vrais']}}} & {tex(D.DECISION_COURTE[r['id']])} \\\\\n"
+        for r in D.RISQUES))
+    ecrire("tab_risques_court_sans_actif.tex", "".join(
+        f"{r['id']} & {tex(r['court'])} & {r['impact']} & {r['vrais']} & \\textbf{{{r['impact'] * r['vrais']}}} & {tex(D.DECISION_COURTE[r['id']])} \\\\\n"
+        for r in D.RISQUES))
+    ecrire("tab_actions_court.tex", "".join(
+        f"{c} & {tex(D.ACTIONS[c][4])} & {euros(D.COUTS[c])} & {'\\Retenu' if D.ACTIONS[c][2] else '\\Differe'} & {tex(D.ACTIONS[c][0])} \\\\\n"
+        for c in D.COUTS))
+
+    # Données des graphiques
+    g = []
+    g.append("\\def\\NotesQ{" + ",".join(f"{q[0]}/{q[2]}" for q in D.QUESTIONS) + "}\n")
+    # grille des exigences et cohérence avec les niveaux
+    for i, p in enumerate(D.PROCESSUS):
+        niv = 0
+        for n in (1, 2, 3):
+            ok = all(e[2][i] in "OD" for e in D.EXIGENCES if e[0] == n)
+            if ok and niv == n - 1:
+                niv = n
+        assert niv == p["effectif"], (p["court"], niv, p["effectif"])
+    g.append("\\def\\ProcCourts{" + ",".join(D.PROC_COURTS) + "}\n")
+    g.append("\\def\\Exigences{" + ",".join(f"{e[0]}/{tex(e[1])}/{e[2]}" for e in D.EXIGENCES) + "}\n")
+    g.append("\\def\\Effectifs{" + ",".join(str(p["effectif"]) for p in D.PROCESSUS) + "}\n")
+    g.append("\\def\\TrajM{" + ",".join(f"{D.TRAJECTOIRE[n][0]}/{D.TRAJECTOIRE[n][1]}" for n in D.PROC_COURTS) + "}\n")
+    g.append("\\def\\Comptes{" + ",".join(f"{c}/{m}" for c, m in D.COMPTES) + "}\n")
+    g.append("\\def\\Sauvegardes{" + ",".join(f"{{{n}}}/{{{d if d else '-'}}}" for n, d in D.SAUVEGARDES) + "}\n")
+    g.append("\\def\\Vulns{" + ",".join(f"{a_}/{c}/{r}/{e}/{pr}" for a_, c, r, e, pr in D.VULNS) + "}\n")
+    retenues = [c for c in D.COUTS if D.ACTIONS[c][2]]
+    differees = [c for c in D.COUTS if not D.ACTIONS[c][2]]
+    g.append("\\def\\BudgetRetenu{" + ",".join(f"{c}/{D.COUTS[c] // 1000}/{tex(D.ACTIONS[c][4])}" for c in retenues) + "}\n")
+    g.append("\\def\\BudgetDiffere{" + ",".join(f"{c}/{D.COUTS[c] // 1000}/{tex(D.ACTIONS[c][4])}" for c in differees) + "}\n")
+    g.append(f"\\def\\BudgetK{{{k['total'] // 1000}}}\\def\\MargeK{{{k['marge'] // 1000}}}"
+             f"\\def\\DiffereK{{{sum(D.COUTS[c] for c in differees) // 1000}}}\\def\\PlafondK{{{D.PLAFOND // 1000}}}\n")
+    corr = []
+    for cid in D.CORRELATIONS:
+        c = CONSTATS[cid]
+        corr.append(f"\\ChaineCorr{{{cid}}}{{{tex(c['titre'])}}}{{{c['risque']}}}{{{tex(c['processus'])}}}{{{tex(c['niveau'])}}}{{{tex(c['action'])}}}{{{tex(c['pilote'])}}}\n")
+    ecrire("graph_correlation.tex", "".join(corr))
+    ecrire("graphes.tex", "".join(g))
 
 
 def main():

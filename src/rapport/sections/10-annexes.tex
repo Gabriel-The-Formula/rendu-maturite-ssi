@@ -1,0 +1,161 @@
+\section{Autodiagnostic détaillé (onglet 01)}
+\label{ann:autodiag}
+
+{\small
+\setlength{\tabcolsep}{3.5pt}
+\begin{longtable}{@{}L{0.75cm} L{2.2cm} C{0.85cm} L{1.7cm} L{6.55cm} L{1.7cm}@{}}
+\caption{Notes, pièces et justifications}\\
+\toprule
+\entete \hd{ID} & \hd{Question} & \hd{Note} & \hd{Pièces} & \hd{Justification factuelle} & \hd{Confiance} \\
+\midrule
+\endfirsthead
+\toprule
+\entete \hd{ID} & \hd{Question} & \hd{Note} & \hd{Pièces} & \hd{Justification factuelle} & \hd{Confiance} \\
+\midrule
+\endhead
+\lignes{tab_questions}
+\bottomrule
+\end{longtable}}
+
+\section{Maturité effective détaillée (onglet 02)}
+\label{ann:maturite}
+
+{\small
+\setlength{\tabcolsep}{3.5pt}
+\begin{longtable}{@{}L{2.3cm} L{1.6cm} L{6.6cm} L{3.9cm}@{}}
+\caption{Preuves, exigences non établies et progression}\\
+\toprule
+\entete \hd{Processus} & \hd{Preuves} & \hd{Exigences non établies et réserves} & \hd{Étape suivante et preuve} \\
+\midrule
+\endfirsthead
+\toprule
+\entete \hd{Processus} & \hd{Preuves} & \hd{Exigences non établies et réserves} & \hd{Étape suivante et preuve} \\
+\midrule
+\endhead
+\lignes{tab_processus_detail}
+\bottomrule
+\end{longtable}}
+
+\section{Registre des constats techniques (onglet 03)}
+\label{ann:constats}
+
+{\footnotesize
+\setlength{\tabcolsep}{3pt}
+\begin{longtable}{@{}C{0.7cm} L{1.4cm} L{4.6cm} L{4.3cm} L{3.4cm}@{}}
+\caption{Observations, qualifications et priorités}\\
+\toprule
+\entete \hd{ID} & \hd{Pièces} & \hd{Observation} & \hd{Qualification et réserve} & \hd{Priorité justifiée} \\
+\midrule
+\endfirsthead
+\toprule
+\entete \hd{ID} & \hd{Pièces} & \hd{Observation} & \hd{Qualification et réserve} & \hd{Priorité justifiée} \\
+\midrule
+\endhead
+\lignes{tab_constats}
+\bottomrule
+\end{longtable}
+
+\begin{longtable}{@{}C{0.7cm} L{2.4cm} L{3.9cm} L{4.0cm} L{3.4cm}@{}}
+\caption{Processus, scénario, recommandation et preuve de clôture}\\
+\toprule
+\entete \hd{ID} & \hd{Processus} & \hd{Scénario de risque} & \hd{Recommandation et pilote} & \hd{Preuve de clôture} \\
+\midrule
+\endfirsthead
+\toprule
+\entete \hd{ID} & \hd{Processus} & \hd{Scénario de risque} & \hd{Recommandation et pilote} & \hd{Preuve de clôture} \\
+\midrule
+\endhead
+\lignes{tab_constats_suite}
+\bottomrule
+\end{longtable}
+
+\begin{longtable}{@{}L{2.2cm} L{1.2cm} C{0.95cm} L{2.0cm} L{1.85cm} L{1.5cm} L{1.6cm} L{2.6cm}@{}}
+\caption{Matrice de corrélation complète (T5)}\\
+\toprule
+\entete \hd{Constat} & \hd{Preuve} & \hd{Risque} & \hd{Processus} & \hd{Niveau} & \hd{Action} & \hd{Pilote} & \hd{Vérification} \\
+\midrule
+\endfirsthead
+\toprule
+\entete \hd{Constat} & \hd{Preuve} & \hd{Risque} & \hd{Processus} & \hd{Niveau} & \hd{Action} & \hd{Pilote} & \hd{Vérification} \\
+\midrule
+\endhead
+\lignes{tab_correlation}
+\bottomrule
+\end{longtable}}
+
+\section{Registre des risques (onglet 04)}
+\label{ann:risques}
+
+{\footnotesize
+\setlength{\tabcolsep}{3pt}
+\begin{longtable}{@{}C{0.7cm} L{3.1cm} L{2.0cm} L{3.3cm} C{0.35cm} C{0.35cm} C{0.8cm} L{3.0cm}@{}}
+\caption{Événements redoutés, faiblesses et décisions}\\
+\toprule
+\entete \hd{ID} & \hd{Événement redouté} & \hd{Actif} & \hd{Vulnérabilité ou faiblesse} & \hd{I} & \hd{V} & \hd{I×V} & \hd{Décision} \\
+\midrule
+\endfirsthead
+\toprule
+\entete \hd{ID} & \hd{Événement redouté} & \hd{Actif} & \hd{Vulnérabilité ou faiblesse} & \hd{I} & \hd{V} & \hd{I×V} & \hd{Décision} \\
+\midrule
+\endhead
+\lignes{tab_risques}
+\bottomrule
+\end{longtable}
+
+\begin{longtable}{@{}C{0.7cm} L{4.2cm} L{5.0cm} L{4.4cm}@{}}
+\caption{Menaces, mesures existantes et preuves}\\
+\toprule
+\entete \hd{ID} & \hd{Menace ou source} & \hd{Mesures existantes} & \hd{Preuves} \\
+\midrule
+\endfirsthead
+\toprule
+\entete \hd{ID} & \hd{Menace ou source} & \hd{Mesures existantes} & \hd{Preuves} \\
+\midrule
+\endhead
+\lignes{tab_risques_suite}
+\bottomrule
+\end{longtable}}
+
+\section{Plan d'action détaillé (onglet 05)}
+\label{ann:plan}
+
+{\footnotesize
+\setlength{\tabcolsep}{3pt}
+\begin{longtable}{@{}C{0.7cm} L{2.4cm} R{1.35cm} C{1.35cm} L{1.8cm} L{3.5cm} L{3.2cm}@{}}
+\caption{Coûts, pilotes, échéances et justifications}\\
+\toprule
+\entete \hd{ID} & \hd{Mesure} & \hd{Coût} & \hd{Choix} & \hd{Pilote} & \hd{Échéance et livrable} & \hd{Justification} \\
+\midrule
+\endfirsthead
+\toprule
+\entete \hd{ID} & \hd{Mesure} & \hd{Coût} & \hd{Choix} & \hd{Pilote} & \hd{Échéance et livrable} & \hd{Justification} \\
+\midrule
+\endhead
+\lignes{tab_actions}
+\midrule
+& \textbf{Total retenu} & \textbf{\TotalRetenu} & & \multicolumn{3}{l}{Marge \Marge\ sur un plafond de \Plafond} \\
+\bottomrule
+\end{longtable}}
+
+\section{Planning et état des tâches}
+\label{ann:taches}
+
+{\small
+\setlength{\tabcolsep}{3.5pt}
+\begin{longtable}{@{}C{0.8cm} L{4.0cm} L{1.4cm} L{2.3cm} L{2.4cm} L{3.2cm}@{}}
+\caption{Tâches du Gantt, dépendances fin-début et état au 30 octobre 2026}\\
+\toprule
+\entete \hd{ID} & \hd{Tâche} & \hd{Pilote} & \hd{Fenêtre} & \hd{Dépend de} & \hd{État attesté} \\
+\midrule
+\endfirsthead
+\toprule
+\entete \hd{ID} & \hd{Tâche} & \hd{Pilote} & \hd{Fenêtre} & \hd{Dépend de} & \hd{État attesté} \\
+\midrule
+\endhead
+\lignes{tab_taches}
+\bottomrule
+\end{longtable}}
+
+\section{Sources}
+
+SGDN/DCSSI, \emph{Maturité SSI, approche méthodologique}, 2 novembre 2007, consultée sur le site de l'ANSSI (cyber.gouv.fr). Sujet du TD 2, dossier de gouvernance P01 à P17, dossier technique T01 à T10, notice de remplissage et grille Excel fournis. MEDICA-SERVICES, ses pièces et ses montants sont fictifs.

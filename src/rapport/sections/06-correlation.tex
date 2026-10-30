@@ -1,27 +1,11 @@
 \section{Corrélation gouvernance et technique (T5)}
 
-La matrice relie chaque constat technique à sa preuve, au scénario de risque, au processus DCSSI concerné et au niveau effectivement démontré. Le niveau indiqué résulte de l'examen cumulatif de la section~\ref{sec:g3} et non du seul constat. Le terme « fragile » signale un niveau acquis sur pièces mais contredit en partie par la technique. Les onze constats sont d'abord présentés avec leur qualification, puis les six plus structurants sont corrélés.
+Chaque constat technique est relié à un risque, au processus DCSSI concerné et à son niveau démontré, puis à une action et à son pilote. Le niveau provient de l'examen cumulatif de la section~\ref{sec:g3} et non du constat seul. La vérification attendue pour chaque ligne et les onze constats figurent en annexe~\ref{ann:constats}.
 
-{\footnotesize
-\setlength{\tabcolsep}{3pt}
-\begin{longtable}{@{}C{0.7cm} L{1.5cm} L{5.3cm} L{4.8cm} L{3.8cm}@{}}
-\caption{Registre des constats techniques (onglet 03, colonnes A à D et G)}\\
-\entete \hd{ID} & \hd{Pièces} & \hd{Observation} & \hd{Qualification et réserve} & \hd{Priorité justifiée} \\
-\endfirsthead
-\entete \hd{ID} & \hd{Pièces} & \hd{Observation} & \hd{Qualification et réserve} & \hd{Priorité justifiée} \\
-\endhead
-\lignes{tab_constats}
-\end{longtable}}
+\begin{figure}[H]
+\centering
+\resizebox{\linewidth}{!}{\input{figures/correlation.tex}}
+\caption{Du constat technique à l'action, six corrélations.}
+\end{figure}
 
-{\footnotesize
-\setlength{\tabcolsep}{3pt}
-\begin{longtable}{@{}L{2.5cm} L{1.3cm} C{0.95cm} L{2.2cm} L{1.7cm} L{1.5cm} L{1.6cm} L{3.7cm}@{}}
-\caption{Matrice constat, preuve, risque, processus, action et vérification}\\
-\entete \hd{Constat} & \hd{Preuve} & \hd{Risque} & \hd{Processus} & \hd{Niveau} & \hd{Action} & \hd{Pilote} & \hd{Vérification} \\
-\endfirsthead
-\entete \hd{Constat} & \hd{Preuve} & \hd{Risque} & \hd{Processus} & \hd{Niveau} & \hd{Action} & \hd{Pilote} & \hd{Vérification} \\
-\endhead
-\lignes{tab_correlation}
-\end{longtable}}
-
-Ces corrélations montrent que les faiblesses techniques prolongent les lacunes de pilotage. L'alerte fermée sans ticket découle directement d'une supervision restée au niveau 1. Les retards de correctifs et l'absence d'exception traduisent des règles qui ne fixent aucun délai. Les procès-verbaux manquants montrent que l'exploitation ne sait pas prouver l'efficacité de ses restaurations, même si elle produit des bilans qualitatifs. Traiter ces faiblesses une à une sans faire progresser les processus reviendrait à corriger des symptômes.
+Les faiblesses techniques prolongent les lacunes de pilotage. L'alerte fermée sans examen tracé découle d'une supervision au niveau 1. Les retards de correctifs traduisent des règles sans délai. Les procès-verbaux manquants montrent une exploitation qui ne prouve pas l'efficacité de ses restaurations. Corriger les symptômes sans faire progresser les processus ne suffirait pas.

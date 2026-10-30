@@ -1,20 +1,23 @@
-% Calendrier de production du projet étudiant (20 octobre au 10 novembre 2026).
-% Les barres sont des fenêtres de réalisation, pas une activité à temps plein.
+% Planning cible du projet (20 octobre au 10 novembre 2026), regroupé par phase.
+% Couleur de barre = responsable. Liens fin-début sur la chaîne principale, liste complète en annexe.
+\input{donnees/couleurs.tex}
 \begin{ganttchart}[
-  hgrid={*1{draw=filet, dotted}}, vgrid={*1{draw=filet, dotted}},
-  x unit=0.43cm, y unit chart=0.43cm, y unit title=0.45cm,
-  title height=1, title label font=\scriptsize\bfseries, title/.append style={fill=accentclair, draw=filet},
-  bar/.append style={fill=accent, draw=accent}, bar height=0.55,
-  bar label font=\scriptsize, bar label node/.append style={align=right},
+  hgrid={*1{draw=filet!60, dotted}}, vgrid={*1{draw=filet!70, dotted}},
+  x unit=0.5cm, y unit chart=0.47cm, y unit title=0.5cm,
+  title height=1, title label font=\scriptsize\bfseries, title/.append style={fill=grisclair, draw=filet},
+  group/.append style={draw=encre, fill=encre}, group height=0.22, group top shift=0.4,
+  group label font=\scriptsize\bfseries, group peaks height=0.15, group peaks width=0.25,
+  bar height=0.62, bar top shift=0.19, bar label font=\scriptsize, bar/.append style={draw=none, rounded corners=1pt},
   milestone/.append style={fill=alerte, draw=alerte}, milestone label font=\scriptsize\bfseries\color{alerte},
-  milestone height=0.6,
-  link/.style={->, draw=gris, thin, rounded corners=1pt},
+  milestone height=0.55,
+  link/.style={-{Stealth[length=1.4mm]}, draw=gris, thin},
+  vrule/.style={draw=alerte, dashed, thick}, vrule label font=\scriptsize\bfseries\color{alerte},
 ]{1}{22}
 \gantttitle{Octobre 2026}{12}\gantttitle{Novembre 2026}{10}\\
 \gantttitlelist{20,...,31}{1}\gantttitlelist{1,...,10}{1}\\
-\newcommand\TacheGantt[5]{\ganttbar[name=#1]{#1 #2 \textcolor{gris}{(#3)}}{#4}{#5}\\}
+\newcommand\PhaseGantt[3]{\ganttgroup{#1}{#2}{#3}\\}
+\newcommand\TacheGantt[5]{\ganttbar[name=#1, bar/.append style={fill=resp#3}]{#1 #2 \textcolor{gris}{(#3)}}{#4}{#5}\\}
 \newcommand\JalonGantt[3]{\ganttmilestone[name=#1]{#1 #2}{#3}\\}
-% Dépendance début-début : du début de la barre amont au début de la barre aval
-\newcommand\LienDD[2]{\draw[gris, thin, -{Stealth[length=1.3mm]}] ([xshift=1.5pt]#1.south west) |- (#2.west);}
 \input{donnees/gantt_projet.tex}
+\ganttvrule{état du Kanban}{\JourKanban}
 \end{ganttchart}

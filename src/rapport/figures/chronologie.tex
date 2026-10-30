@@ -1,0 +1,16 @@
+% Chronologie neutre du 9 octobre 2026 (T07, T08), heures UTC
+\begin{tikzpicture}[font=\scriptsize, x=1.2cm]
+  \draw[gris, thick] (0,0) -- (10.6,0);
+  \draw[gris, thick, dashed] (10.6,0) -- (11.3,0);
+  \draw[gris, thick, -{Stealth}] (11.3,0) -- (12.6,0);
+  \foreach \x/\h in {0/00:13, 5.3/00:18, 9.2/00:22}{\draw[gris] (\x,-0.1) -- (\x,0.1); \node[text=gris, below] at (\x,-0.12) {\h};}
+  \node[text=gris, below] at (12.1,-0.12) {+24 h};
+  % événements
+  \foreach \x/\kcol/\ktxt/\ksub/\kpos in {0.05/ambre/{3 échecs VPN}/{admin-old\\ 198.51.100.44}/above,
+                              0.75/ambre/{succès VPN}/{11 s plus tard}/below,
+                              5.3/alerte/{ajout à Server-Admins}/{par admin-old\\ +5 min 20 s}/above,
+                              9.2/accent/{alerte AL-1048 HIGH}/{+3 min 43 s}/below,
+                              12.1/gris/{fermeture automatique}/{aucun ticket,\\ aucun examen tracé}/above}{
+    \fill[\kcol] (\x,0) circle (3pt);
+    \node[\kpos=0.32cm, align=center, text width=2.9cm] at (\x,0) {\textbf{\ktxt}\\{\color{gris}\ksub}};}
+\end{tikzpicture}

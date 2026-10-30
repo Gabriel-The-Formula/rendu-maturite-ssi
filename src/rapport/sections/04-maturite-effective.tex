@@ -1,36 +1,25 @@
 \section{Maturité effective des sept processus (G3)}
 \label{sec:g3}
 
-L'échelle DCSSI est cumulative. Un niveau n'est attribué que si toutes ses exigences et celles des niveaux inférieurs sont démontrées par les pièces. Le niveau 2 exige ainsi des actions planifiées, menées par une personne compétente en SSI, des pratiques en partie formalisées, des mesures qualitatives et l'information des autorités. Le niveau 3 exige un processus défini, standardisé sur tout l'organisme et soutenu par des ressources. Aucune pièce n'affiche de niveau revendiqué. Les déclarations recueillies portent sur des pratiques et non sur des niveaux. Parmi les trois points de \piece{P17}, l'affirmation de la DSI sur le MFA est contredite par \piece{T04}, celle de la DG sur les tests de restauration n'est pas démontrée, et la revue annuelle de la PSSI n'a pas de procès-verbal. Nous appliquons un critère constant pour les mesures qualitatives. Un compte rendu écrit des résultats en tient lieu, un compte rendu oral sans trace n'en tient pas lieu. La compétence est retenue lorsqu'un rôle chargé de la sécurité est désigné.
+L'échelle est cumulative. Un niveau n'est atteint que si toutes ses exigences et celles des niveaux inférieurs sont démontrées. Deux critères sont appliqués à tous les processus. Un compte rendu écrit des résultats vaut mesure qualitative, un compte rendu oral sans trace ne la vaut pas. La compétence est admise lorsqu'un rôle chargé de la sécurité est désigné. La figure~\ref{fig:exigences} montre l'examen exigence par exigence.
 
-\begin{table}[h]
-\centering\small
+\begin{figure}[H]
+\centering
+\resizebox{\linewidth}{!}{\input{figures/exigences.tex}}
+\caption{Exigences cumulatives par processus et niveau démontré.}
+\label{fig:exigences}
+\end{figure}
+
+\begin{table}[H]
+\centering\footnotesize
 \caption{Niveaux revendiqués, démontrés et indéterminés (onglet 02, cible \Cible)}
-\begin{tabularx}{\linewidth}{@{}L{3.3cm} C{1.75cm} C{1.5cm} Y L{2.3cm} C{0.9cm}@{}}
+\begin{tabularx}{\linewidth}{@{}L{3.1cm} C{1.9cm} C{1.75cm} Y L{2.1cm} C{0.9cm}@{}}
+\toprule
 \entete \hd{Processus} & \hd{Revendiqué} & \hd{Démontré} & \hd{Niveau supérieur} & \hd{Preuves} & \hd{Écart} \\
+\midrule
 \lignes{tab_processus}
+\bottomrule
 \end{tabularx}
 \end{table}
 
-\begin{figure}[h]
-\centering
-\input{figures/maturite.tex}
-\caption{Niveaux démontrés et niveau adéquat. Les barres reprennent la colonne C de l'onglet 02.}
-\end{figure}
-
-Quatre processus restent au niveau 1. La gestion des risques repose sur des recensements ponctuels en projet, sans calendrier, méthode réutilisable ni registre approuvé \piece{(P10)}. La supervision dispose d'outils et d'alertes, mais aucun contrôle n'est planifié et aucun reporting régulier n'existe \piece{(P12)}, ce que confirme la fermeture automatique d'AL-1048 \piece{(T08)}. La stratégie présente plusieurs éléments du niveau 2, avec une note d'orientation approuvée, des priorités annuelles et un compte rendu semestriel \piece{(P09)}. Comme ce compte rendu reste oral et qu'aucune mesure qualitative n'est documentée, nous classons le niveau 2 comme indéterminé faute de preuve plutôt que comme non atteint. La réalisation des mesures est dans le même cas. Les comptes rendus d'installation et de validation, le suivi régulier et l'information de la DSI sont établis \piece{(P14)}, mais la planification ne l'est pas, la pièce indiquant seulement que les déploiements sont « souvent préparés ». Une exigence déduite n'étant pas démontrée, le niveau 2 reste indéterminé.
-
-Les trois autres processus atteignent le niveau 2. Pour les règles, la PSSI approuvée, l'application planifiée et les contrôles qualitatifs consignés suffisent \piece{(P11)}, même si l'absence de procès-verbaux de revue fragilise ce niveau \piece{(P17)}. La conception repose sur une fiche type, des revues planifiées pour les projets majeurs et un compte rendu écrit remonté au responsable \piece{(P13)}. Selon le critère appliqué à tous les processus, la désignation de ce responsable établit la compétence, qui devra être confirmée en entretien. L'exploitation remplit les exigences du niveau 2 pour les sauvegardes \piece{(P15)}, mais les constats techniques montrent que ce niveau reste fragile. Aucune anomalie technique isolée ne suffit pourtant à retirer un niveau entier, et nous l'utilisons pour orienter la progression plutôt que pour noter.
-
-Le tableau suivant détaille, pour chaque processus, les preuves retenues, les exigences cumulatives qui ne sont pas établies et l'étape de progression proposée avec la preuve qui permettra de la constater. Il reprend les colonnes D, E et G de l'onglet 02.
-
-{\footnotesize
-\setlength{\tabcolsep}{3pt}
-\begin{longtable}{@{}L{2.4cm} L{1.7cm} L{7.0cm} L{5.25cm}@{}}
-\caption{Exigences non établies et progression par processus}\\
-\entete \hd{Processus} & \hd{Preuves} & \hd{Exigences non établies et réserves} & \hd{Étape suivante et preuve de réussite} \\
-\endfirsthead
-\entete \hd{Processus} & \hd{Preuves} & \hd{Exigences non établies et réserves} & \hd{Étape suivante et preuve de réussite} \\
-\endhead
-\lignes{tab_processus_detail}
-\end{longtable}}
+Aucune pièce n'affiche de niveau revendiqué. Quatre processus restent au niveau 1. La gestion des risques et la supervision manquent de planification et de formalisation \piece{(P10, P12)}. La stratégie et la réalisation ont un niveau 2 indéterminé, l'une faute de mesure qualitative documentée \piece{(P09)}, l'autre faute de planification démontrée, les déploiements étant seulement « souvent préparés » \piece{(P14)}. Les règles, la conception et l'exploitation atteignent le niveau 2. Aucun processus n'est standardisé sur tout l'organisme, ce qui exclut le niveau 3. Les réserves détaillées figurent en annexe~\ref{ann:maturite}.

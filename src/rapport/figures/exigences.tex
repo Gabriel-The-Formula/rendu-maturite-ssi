@@ -1,0 +1,21 @@
+% Grille des exigences cumulatives DCSSI par processus (O démontré, N non établi, I indéterminé, D déduit)
+\begin{tikzpicture}[x=1.8cm, y=0.5cm, font=\scriptsize]
+  \foreach \p [count=\j from 0] in \ProcCourts{\node[font=\scriptsize\bfseries, rotate=0] at (\j+0.5,0.75) {\p};}
+  \foreach \niv/\lib/\val [count=\i from 1] in \Exigences{
+    \node[anchor=east] at (-0.08,-\i+0.5) {\lib};
+    \node[anchor=east, text=gris] at (-2.6,-\i+0.5) {N\niv};
+    \foreach \j in {0,...,6}{
+      \pgfmathtruncatemacro\k{\j+1}\StrChar{\val}{\k}[\v]
+      \if O\v \def\kcol{vert!55}\def\ktxt{démontré}\fi
+      \if N\v \def\kcol{alerte!45}\def\ktxt{non établi}\fi
+      \if I\v \def\kcol{ambre!45}\def\ktxt{indéterminé}\fi
+      \if D\v \def\kcol{vert!25}\def\ktxt{déduit}\fi
+      \fill[\kcol] (\j+0.04,-\i+0.06) rectangle (\j+0.96,-\i+0.94);
+      \node[font=\tiny] at (\j+0.5,-\i+0.5) {\ktxt};}}
+  % séparations de niveaux
+  \draw[encre] (-2.85,-1) -- (7,-1);  \draw[encre] (-2.85,-6) -- (7,-6);
+  % niveau démontré
+  \foreach \e [count=\j from 0] in \Effectifs{
+    \node[draw=accent, fill=accent, text=white, font=\scriptsize\bfseries, minimum width=1.3cm] at (\j+0.5,-10.0) {niveau \e};}
+  \node[anchor=east, font=\scriptsize\bfseries] at (-0.08,-10.0) {Niveau démontré};
+\end{tikzpicture}

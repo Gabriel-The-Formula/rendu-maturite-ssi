@@ -1,0 +1,68 @@
+\section{L'entreprise et le périmètre audité (G1)}
+
+\subsection{Organisation de MEDICA-SERVICES}
+
+MEDICA-SERVICES emploie 220 personnes sur quatre implantations et dispose d'une DSI de 14 personnes \piece{(P01, P02)}. La figure~\ref{fig:organigramme} reprend son organisation. Seuls deux liens sont établis par les pièces. La DG approuve la stratégie SSI que la DSI applique, et le RSSI est rattaché à la DSI. Les autres rattachements ne sont pas précisés par \piece{P02} et ne sont donc pas tracés.
+
+\begin{figure}[H]
+\centering
+\resizebox{\linewidth}{!}{\input{figures/organigramme.tex}}
+\caption{Organigramme de MEDICA-SERVICES d'après P01, P02 et P09.}
+\label{fig:organigramme}
+\end{figure}
+
+\begin{table}[H]
+\centering\small
+\caption{Qui gère quoi en matière de SSI}
+\begin{tabularx}{\linewidth}{@{}L{3.1cm} Y L{1.6cm} L{3.4cm}@{}}
+\toprule
+\entete \hd{Acteur} & \hd{Rôle établi par les pièces} & \hd{Pièces} & \hd{Rôle dans notre plan} \\
+\midrule
+Direction générale & Autorité du périmètre, approuve la stratégie SSI et l'enveloppe de 120\,000\,€ & P02, P09, P16 & Décide, accepte les risques résiduels \\
+DSI & Applique la stratégie SSI. Infrastructure et comptes par hypothèse & P02 & Pilote A08 et les règles FW \\
+RSSI (mi-temps) & Recense quelques risques avec la DSI, rend compte oralement deux fois par an & P02, P09, P10 & Pilote A01, A02, A03 et l'investigation \\
+Resp. infrastructures & Cité par P02. Sauvegardes et correctifs par hypothèse & P02 & Pilote A05 et A09 \\
+Support et astreinte & Connaît la procédure de restauration, 24 techniciens d'astreinte & P01, P15 & Exécute les tests de restauration \\
+Contrats et RH & Gestion des contrats et des ressources humaines & P02 & Clauses prestataires, sensibilisation \\
+DPO externalisé & Fonction externalisée & P02 & Consulté sur les données de santé \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Périmètre retenu}
+
+La méthode recommande un périmètre homogène en termes de responsabilité. Nous retenons le service d'hébergement et d'exploitation rendu aux clients, placé sous l'autorité de la DG.
+
+\begin{table}[H]
+\centering\small
+\caption{Périmètre retenu}
+\begin{tabularx}{\linewidth}{@{}L{3.1cm} Y L{2.1cm}@{}}
+\toprule
+\entete \hd{Élément} & \hd{Contenu retenu} & \hd{Pièces} \\
+\midrule
+Bénéficiaires & 12 établissements de soins, reprise sous 8 h des applications critiques & P01 \\
+Actifs essentiels & MEDI-PORTAL et sa base, identifiants patients et données de santé, ERP, ticketing & P03, P05, T01 \\
+Services supports & 35 serveurs ou VM, Active Directory, Microsoft 365, VPN et bastion, sauvegardes, salle principale et salle de secours & P03, T01, T09 \\
+Interconnexions & Portail HTTPS public, liaisons contractuelles avec les clients, réplication vers le secours, SaaS & P03, P07, T01 \\
+Exclusions & SI des clients, fonctionnement interne des SaaS et du prestataire de secours, réseaux de Bordeaux, Montpellier et Montpellier-Sud non décrits, tout test actif & P01, T01, T04 \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Limites et informations manquantes}
+
+Les pièces sont des fragments. Une absence de justificatif est traitée comme une incertitude à lever et non comme la preuve qu'une action n'a pas eu lieu. Trois manques pèsent le plus sur nos conclusions.
+
+\begin{table}[H]
+\centering\small
+\caption{Informations manquantes et demandes de preuves}
+\begin{tabularx}{\linewidth}{@{}L{4.0cm} Y Y@{}}
+\toprule
+\entete \hd{Information manquante} & \hd{Conséquence} & \hd{Demande de preuve} \\
+\midrule
+RTO et RPO par service, dépendances \piece{(T01, T09)} & Engagement de 8 h invérifiable & Analyse d'impact, annexes contractuelles, entretien avec le responsable infrastructures \\
+Liste exhaustive des comptes privilégiés et accès conditionnel \piece{(T04)} & Taux MFA valable pour l'export seul & Export complet annuaire et SaaS, registre des exceptions \\
+Suite donnée à AL-1048 et intégrité des journaux \piece{(T07, T08)} & Événement du 9 octobre non qualifiable & Journaux bruts scellés, historique du ticketing, entretien avec le titulaire d'admin-old \\
+\bottomrule
+\end{tabularx}
+\end{table}

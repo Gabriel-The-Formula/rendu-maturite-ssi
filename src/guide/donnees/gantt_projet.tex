@@ -1,46 +1,37 @@
-\TacheGantt{E1}{Lecture du sujet et des pièces}{Tous}{1}{3}
-\TacheGantt{E2}{Collecte des preuves P/T}{Team}{2}{5}
-\TacheGantt{E3}{G1 Périmètre et limites}{Team}{4}{8}
-\TacheGantt{E4}{G2 Autodiagnostic Q01 à Q12}{Marc}{4}{9}
-\TacheGantt{E5}{T1 Architecture et flux}{Matteo}{4}{9}
-\TacheGantt{E6}{T2 Identités et MFA}{Matteo}{7}{10}
-\TacheGantt{E7}{T3 Vulnérabilités}{Bernard}{7}{11}
-\TacheGantt{E8}{T4 Journaux et sauvegardes}{Bernard}{8}{12}
+\PhaseGantt{Cadrage}{1}{4}
+\TacheGantt{E1}{Lecture du sujet et des pièces}{Tous}{1}{2}
+\TacheGantt{E2}{Collecte des preuves P/T}{Team}{2}{4}
+\PhaseGantt{Analyses}{5}{9}
+\TacheGantt{E3}{G1 Périmètre et limites}{Team}{5}{7}
+\TacheGantt{E4}{G2 Autodiagnostic Q01 à Q12}{Marc}{5}{8}
+\TacheGantt{E5}{T1 Architecture et flux}{Matteo}{5}{7}
+\TacheGantt{E6}{T2 Identités et MFA}{Matteo}{7}{9}
+\TacheGantt{E7}{T3 Vulnérabilités}{Bernard}{5}{7}
+\TacheGantt{E8}{T4 Journaux et sauvegardes}{Bernard}{7}{9}
+\PhaseGantt{Consolidation}{5}{15}
 \TacheGantt{E9}{Atelier de consolidation}{Tous}{10}{10}
-\TacheGantt{E10}{G3 Sept processus}{Marc}{10}{14}
-\TacheGantt{E11}{T5 Corrélation}{Matteo}{11}{15}
-\TacheGantt{E12}{G4 Risques, budget, feuille de route}{Team}{12}{16}
-\TacheGantt{E13}{Remplissage progressif de l'Excel}{Bernard}{4}{17}
-\TacheGantt{E14}{Rédaction du rapport}{Team}{14}{18}
-\TacheGantt{E15}{Relectures croisées}{Tous}{17}{19}
-\TacheGantt{E16}{Corrections}{Marc}{18}{20}
-\TacheGantt{E17}{Compilation et contrôle du PDF}{Team}{19}{20}
-\TacheGantt{E18}{Présentation CODIR et répétition}{Matteo}{18}{21}
-\JalonGantt{J1}{Cadrage figé}{5}
-\JalonGantt{J2}{Analyses figées}{16}
+\TacheGantt{E10}{G3 Sept processus}{Marc}{11}{13}
+\TacheGantt{E11}{T5 Corrélation}{Matteo}{11}{13}
+\TacheGantt{E12}{G4 Risques, budget, feuille de route}{Team}{14}{15}
+\TacheGantt{E13}{Remplissage progressif de l'Excel}{Bernard}{5}{15}
+\PhaseGantt{Rédaction et restitution}{16}{21}
+\TacheGantt{E14}{Rédaction du rapport}{Team}{16}{18}
+\TacheGantt{E15}{Relectures croisées}{Tous}{19}{19}
+\TacheGantt{E16}{Corrections}{Marc}{20}{20}
+\TacheGantt{E17}{Compilation et contrôle du PDF}{Team}{21}{21}
+\TacheGantt{E18}{Présentation CODIR et répétition}{Matteo}{16}{21}
+\JalonGantt{J1}{Cadrage figé}{4}
+\JalonGantt{J2}{Analyses figées}{15}
 \JalonGantt{J3}{Livrables finalisés}{21}
 \JalonGantt{J4}{Dépôt et soutenance}{22}
-\LienDD{E1}{E2}
-\LienDD{E2}{E3}
-\LienDD{E2}{E4}
-\LienDD{E2}{E5}
-\LienDD{E2}{E6}
-\LienDD{E2}{E7}
-\LienDD{E2}{E8}
-\LienDD{E4}{E9}
-\LienDD{E6}{E9}
-\LienDD{E4}{E10}
-\LienDD{E9}{E10}
-\LienDD{E5}{E11}
-\LienDD{E6}{E11}
-\LienDD{E7}{E11}
-\LienDD{E8}{E11}
-\LienDD{E10}{E12}
-\LienDD{E11}{E12}
-\LienDD{E2}{E13}
-\LienDD{E10}{E14}
-\LienDD{E11}{E14}
-\LienDD{E14}{E15}
-\LienDD{E15}{E16}
-\LienDD{E16}{E17}
-\LienDD{E12}{E18}
+\ganttlink{E1}{E2}
+\ganttlink{E9}{E10}
+\ganttlink{E9}{E11}
+\ganttlink{E10}{E12}
+\ganttlink{E11}{E12}
+\ganttlink{E12}{E14}
+\ganttlink{E14}{E15}
+\ganttlink{E15}{E16}
+\ganttlink{E16}{E17}
+\ganttlink{E12}{E18}
+\def\JourKanban{11}

@@ -360,32 +360,81 @@ TRAJECTOIRE = {"Stratégie": (2, 2), "Risques": (2, 2), "Règles": (2, 2), "Supe
 # Organisation du projet étudiant (calendrier de production, 20/10 au 10/11/2026)
 # ---------------------------------------------------------------------------
 EQUIPE = ["Team", "Marc", "Matteo", "Bernard"]
-# (id, libellé, responsable, début, fin, dépendances, colonne Kanban)
-# Dépendances de type début-début : la tâche aval démarre après le début de la tâche amont et se termine après elle.
-# Colonne Kanban : état attesté. Aucun avancement n'ayant été fourni, toutes les cartes sont à leur état initial.
+# Couleur par responsable (Gantt et Kanban)
+COULEURS = {"Team": "1D5C7A", "Marc": "3B7A57", "Matteo": "B7791F", "Bernard": "6B4C9A", "Tous": "5F6B7A"}
+
+# Planning cible. Dépendances de type fin-début : une tâche démarre quand celles dont elle dépend sont finies.
+# Les fenêtres sont des périodes de réalisation, pas un travail à plein temps.
+# (id, libellé, responsable, début, fin, dépendances, phase)
 TACHES = [
-    ("E1", "Lecture du sujet et des pièces", "Tous", "2026-10-20", "2026-10-22", [], "À faire"),
-    ("E2", "Collecte des preuves P/T", "Team", "2026-10-21", "2026-10-24", ["E1"], "À faire"),
-    ("E3", "G1 Périmètre et limites", "Team", "2026-10-23", "2026-10-27", ["E2"], "À faire"),
-    ("E4", "G2 Autodiagnostic Q01 à Q12", "Marc", "2026-10-23", "2026-10-28", ["E2"], "À faire"),
-    ("E5", "T1 Architecture et flux", "Matteo", "2026-10-23", "2026-10-28", ["E2"], "À faire"),
-    ("E6", "T2 Identités et MFA", "Matteo", "2026-10-26", "2026-10-29", ["E2"], "À faire"),
-    ("E7", "T3 Vulnérabilités", "Bernard", "2026-10-26", "2026-10-30", ["E2"], "À faire"),
-    ("E8", "T4 Journaux et sauvegardes", "Bernard", "2026-10-27", "2026-10-31", ["E2"], "À faire"),
-    ("E9", "Atelier de consolidation", "Tous", "2026-10-29", "2026-10-29", ["E4", "E6"], "À faire"),
-    ("E10", "G3 Sept processus", "Marc", "2026-10-29", "2026-11-02", ["E4", "E9"], "À faire"),
-    ("E11", "T5 Corrélation", "Matteo", "2026-10-30", "2026-11-03", ["E5", "E6", "E7", "E8"], "À faire"),
-    ("E12", "G4 Risques, budget, feuille de route", "Team", "2026-10-31", "2026-11-04", ["E10", "E11"], "À faire"),
-    ("E13", "Remplissage progressif de l'Excel", "Bernard", "2026-10-23", "2026-11-05", ["E2"], "À faire"),
-    ("E14", "Rédaction du rapport", "Team", "2026-11-02", "2026-11-06", ["E10", "E11"], "À faire"),
-    ("E15", "Relectures croisées", "Tous", "2026-11-05", "2026-11-07", ["E14"], "À faire"),
-    ("E16", "Corrections", "Marc", "2026-11-06", "2026-11-08", ["E15"], "À faire"),
-    ("E17", "Compilation et contrôle du PDF", "Team", "2026-11-07", "2026-11-08", ["E16"], "À faire"),
-    ("E18", "Présentation CODIR et répétition", "Matteo", "2026-11-06", "2026-11-09", ["E12"], "À faire"),
+    ("E1", "Lecture du sujet et des pièces", "Tous", "2026-10-20", "2026-10-21", [], "Cadrage"),
+    ("E2", "Collecte des preuves P/T", "Team", "2026-10-21", "2026-10-23", ["E1"], "Cadrage"),
+    ("E3", "G1 Périmètre et limites", "Team", "2026-10-24", "2026-10-26", ["E2"], "Analyses"),
+    ("E4", "G2 Autodiagnostic Q01 à Q12", "Marc", "2026-10-24", "2026-10-27", ["E2"], "Analyses"),
+    ("E5", "T1 Architecture et flux", "Matteo", "2026-10-24", "2026-10-26", ["E2"], "Analyses"),
+    ("E6", "T2 Identités et MFA", "Matteo", "2026-10-26", "2026-10-28", ["E2"], "Analyses"),
+    ("E7", "T3 Vulnérabilités", "Bernard", "2026-10-24", "2026-10-26", ["E2"], "Analyses"),
+    ("E8", "T4 Journaux et sauvegardes", "Bernard", "2026-10-26", "2026-10-28", ["E2"], "Analyses"),
+    ("E9", "Atelier de consolidation", "Tous", "2026-10-29", "2026-10-29", ["E3", "E4", "E5", "E6", "E7", "E8"], "Consolidation"),
+    ("E10", "G3 Sept processus", "Marc", "2026-10-30", "2026-11-01", ["E9"], "Consolidation"),
+    ("E11", "T5 Corrélation", "Matteo", "2026-10-30", "2026-11-01", ["E9"], "Consolidation"),
+    ("E12", "G4 Risques, budget, feuille de route", "Team", "2026-11-02", "2026-11-03", ["E10", "E11"], "Consolidation"),
+    ("E13", "Remplissage progressif de l'Excel", "Bernard", "2026-10-24", "2026-11-03", ["E2"], "Consolidation"),
+    ("E14", "Rédaction du rapport", "Team", "2026-11-04", "2026-11-06", ["E12", "E13"], "Rédaction et restitution"),
+    ("E15", "Relectures croisées", "Tous", "2026-11-07", "2026-11-07", ["E14"], "Rédaction et restitution"),
+    ("E16", "Corrections", "Marc", "2026-11-08", "2026-11-08", ["E15"], "Rédaction et restitution"),
+    ("E17", "Compilation et contrôle du PDF", "Team", "2026-11-09", "2026-11-09", ["E16"], "Rédaction et restitution"),
+    ("E18", "Présentation CODIR et répétition", "Matteo", "2026-11-04", "2026-11-09", ["E12"], "Rédaction et restitution"),
 ]
+PHASES = ["Cadrage", "Analyses", "Consolidation", "Rédaction et restitution"]
 JALONS = [
-    ("J1", "Cadrage figé", "2026-10-24"),
-    ("J2", "Analyses figées", "2026-11-04"),
+    ("J1", "Cadrage figé", "2026-10-23"),
+    ("J2", "Analyses figées", "2026-11-03"),
     ("J3", "Livrables finalisés", "2026-11-09"),
     ("J4", "Dépôt et soutenance", "2026-11-10"),
 ]
+# Liens dessinés sur le Gantt (chaîne critique et convergences), la liste complète figure en annexe
+LIENS_GANTT = [("E1", "E2"), ("E9", "E10"), ("E9", "E11"), ("E10", "E12"), ("E11", "E12"),
+               ("E12", "E14"), ("E14", "E15"), ("E15", "E16"), ("E16", "E17"), ("E12", "E18")]
+
+# Kanban : état attesté au 30 octobre 2026, date de production de la version 1 des livrables.
+# Une tâche dont le livrable existe en version 1 est « À relire » (relecture croisée de l'équipe à venir).
+# Une tâche sans trace de réalisation reste « À faire », avec la mention « non attesté » si sa fenêtre est passée.
+DATE_KANBAN = "2026-10-30"
+KANBAN = {
+    "E1": ("À faire", "non attesté"), "E9": ("À faire", "non attesté"),
+    "E2": ("À relire", ""), "E3": ("À relire", ""), "E4": ("À relire", ""), "E5": ("À relire", ""),
+    "E6": ("À relire", ""), "E7": ("À relire", ""), "E8": ("À relire", ""), "E10": ("À relire", ""),
+    "E11": ("À relire", ""), "E12": ("À relire", ""), "E13": ("À relire", ""), "E14": ("À relire", ""),
+    "E18": ("En cours", "diapositives prêtes, répétition à faire"),
+    "E15": ("À faire", ""), "E16": ("À faire", ""), "E17": ("À faire", ""),
+}
+
+# ---------------------------------------------------------------------------
+# Données des graphiques
+# ---------------------------------------------------------------------------
+# Grille des exigences DCSSI par processus : O démontré, N non établi, I indéterminé, D déduit (à confirmer)
+PROC_COURTS = ["Stratégie", "Risques", "Règles", "Supervision", "Conception", "Réalisation", "Exploitation"]
+EXIGENCES = [
+    (1, "Pratiques de base", "OOOOOOO"),
+    (2, "Actions planifiées", "ONONOIO"),
+    (2, "Acteurs compétents en SSI", "OOOODOO"),
+    (2, "Pratiques en partie formalisées", "ONONOOO"),
+    (2, "Mesures qualitatives", "INONOOO"),
+    (2, "Autorités informées", "OIONOOO"),
+    (3, "Processus défini et standardisé", "NNNNNNN"),
+    (3, "Compétences appropriées", "IIIIIII"),
+    (3, "Soutien de l'organisme", "IIIIIII"),
+]
+# T03 et T04 : comptes privilégiés
+COMPTES = [("admin-jdupont", 1), ("admin-mmartin", 1), ("admin-astreinte1", 1), ("admin-astreinte2", 1),
+           ("admin-cloud1", 1), ("admin-net1", 1), ("svc-backup", 0), ("admin-old", 0), ("admin-presta", 0), ("admin-db", 0)]
+# T09 : services et dernier test documenté
+SAUVEGARDES = [("MEDI-PORTAL", "15/09"), ("Ticketing", "16/09"), ("ERP", ""), ("Active Directory", ""),
+               ("Fichiers partagés", ""), ("Messagerie M365", ""), ("Base MEDI", ""), ("VPN et bastion", ""), ("Supervision", "")]
+# T05 et T06 : (actif, CVSS, retard en jours, exposition, priorité retenue)
+VULNS = [("APP01", 9.8, 74, "DMZ et FW-17", 1), ("SRV-FICHIERS", 6.5, 43, "VLAN 40", 2), ("WEB01", 5.3, 12, "Internet", 3)]
+
+# Décision résumée par risque (tableau du corps du rapport)
+DECISION_COURTE = {"R01": "Réduire (A08, A02)", "R02": "Réduire (A05, A08, régie)", "R03": "Réduire (A09)",
+                   "R04": "Réduire en partie, résiduel accepté", "R05": "Réduire (A09)", "R06": "Accepter 12 mois (A04 différée)"}

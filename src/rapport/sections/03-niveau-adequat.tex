@@ -1,34 +1,26 @@
 \section{Niveau adéquat de maturité (G2)}
 
-Le niveau adéquat traduit les enjeux du périmètre et sert de cible. La méthode note douze questions de 0 à 3, retient le maximum de chaque famille de trois questions, additionne les quatre maxima et convertit la somme selon le barème de 2007. Nos notes reposent sur les pièces citées et la confiance indique la solidité de la preuve, une note fondée sur une simple déclaration restant « probable ».
+La méthode note douze questions de 0 à 3, garde le maximum de chaque famille de trois et convertit la somme des quatre maxima en niveau. La figure~\ref{fig:notes} présente les notes et le calcul. Les justifications complètes, pièce par pièce, figurent en annexe~\ref{ann:autodiag}.
 
-{\small
-\setlength{\tabcolsep}{3.5pt}
-\begin{longtable}{@{}L{0.7cm} L{2.3cm} C{0.75cm} L{1.7cm} L{8.45cm} L{1.5cm}@{}}
-\caption{Autodiagnostic DCSSI, notes et justifications (onglet 01)}\\
-\entete \hd{ID} & \hd{Question} & \hd{Note} & \hd{Pièces} & \hd{Justification factuelle} & \hd{Confiance} \\
-\endfirsthead
-\entete \hd{ID} & \hd{Question} & \hd{Note} & \hd{Pièces} & \hd{Justification factuelle} & \hd{Confiance} \\
-\endhead
-\lignes{tab_questions}
-\end{longtable}}
+\begin{figure}[H]
+\centering
+\resizebox{\linewidth}{!}{\input{figures/notes_q.tex}}
+\caption{Notes Q01 à Q12, maxima par famille et niveau adéquat (onglet 01).}
+\label{fig:notes}
+\end{figure}
 
-\begin{minipage}[t]{0.42\linewidth}
-\vspace{0pt}\small
-\begin{tabularx}{\linewidth}{@{}Y C{1.5cm} C{1cm}@{}}
-\entete \hd{Famille} & \hd{Questions} & \hd{Max} \\
-\lignes{tab_maxima}
+\begin{table}[H]
+\centering\small
+\caption{Autodiagnostic DCSSI, synthèse}
+\begin{tabularx}{\linewidth}{@{}C{1cm} Y C{1cm} L{3.2cm} L{2.2cm}@{}}
+\toprule
+\entete \hd{ID} & \hd{Question} & \hd{Note} & \hd{Pièces} & \hd{Confiance} \\
 \midrule
-\textbf{Somme} & & \textbf{\SommeMaxima} \\
-Niveau calculé & 9 à 10 & \textbf{\NiveauCalcule} \\
-Ajustement & & \Ajustement \\
-\textbf{Cible proposée} & & \textbf{\Cible} \\
+\lignes{tab_questions_court}
+\bottomrule
 \end{tabularx}
-\end{minipage}\hfill
-\begin{minipage}[t]{0.54\linewidth}
-\vspace{0pt}
-La somme des maxima atteint \SommeMaxima, ce qui correspond au niveau \NiveauCalcule. Ce résultat est robuste. Il resterait à 4 si la confidentialité était notée 2, puisque la somme vaudrait encore 9. Il ne passerait à 5 que si l'ouverture du SI était jugée hors de contrôle. Ce serait le cas si l'on estimait que l'accès public au portail échappe à l'organisme. Nous ne retenons pas cette lecture, car la publication est unique, filtrée par FW-01 et FW-08 et protégée par un reverse proxy \piece{(T01, T02)}, et les interconnexions clients sont encadrées par contrat \piece{(P07)}.
-\end{minipage}
+\end{table}
 
-\medskip
-La méthode autorise l'autorité responsable à ajuster ce niveau d'un cran au plus. Un abaissement à 3 pourrait s'appuyer sur la taille de l'entreprise et sur un RSSI à mi-temps \piece{(P02)}. Nous ne le proposons pas, car les données traitées touchent la santé de patients chez des tiers et un niveau réduit exposerait l'organisme à une gestion de la SSI inférieure à ses enjeux. La contrainte de capacité est mieux traitée par une progression par étapes que par une baisse de l'objectif. Cette proposition reste à valider par la direction générale, seule habilitée à décider de l'ajustement.
+Le résultat est robuste. La cible resterait à 4 si la confidentialité était notée 2, la somme valant encore 9. Elle ne passerait à 5 que si l'ouverture du SI était jugée hors de contrôle à cause de l'accès public au portail. Nous ne retenons pas cette lecture, car la publication est unique, filtrée et protégée par un reverse proxy \piece{(T01, T02)}.
+
+La méthode autorise un ajustement d'un niveau. Une baisse à 3 pourrait s'appuyer sur la taille de l'entreprise et sur un RSSI à mi-temps \piece{(P02)}. Nous ne la proposons pas, car les données touchent la santé de patients. La contrainte de moyens est mieux traitée par une progression par étapes. La décision revient à la DG.

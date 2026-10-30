@@ -1,0 +1,25 @@
+% Notes Q01 à Q12, maxima par famille et calcul du niveau adéquat (onglet 01)
+\begin{tikzpicture}[x=0.82cm, y=0.95cm, font=\scriptsize]
+  % familles
+  \foreach \fam/\kcol/\deb in {Conséquences/accent/0, Sensibilité/vert/3, Menaces/ambre/6, Vulnérabilités/violet/9}{
+    \fill[\kcol!7] (\deb+0.1,-0.95) rectangle (\deb+2.9,3.35);
+    \node[font=\scriptsize\bfseries, text=\kcol] at (\deb+1.5,-0.7) {\fam};}
+  % grille
+  \foreach \y in {0,1,2,3}{\draw[filet] (0,\y) -- (12,\y); \node[anchor=east, text=gris] at (-0.05,\y) {\y};}
+  % barres
+  \foreach \q/\n [count=\i from 0] in \NotesQ{
+    \pgfmathtruncatemacro\fam{div(\i,3)}
+    \ifcase\fam \def\kcol{accent}\or\def\kcol{vert}\or\def\kcol{ambre}\or\def\kcol{violet}\fi
+    \fill[\kcol] (\i+0.25,0) rectangle (\i+0.75,\n);
+    \node[above, font=\scriptsize\bfseries] at (\i+0.5,\n) {\n};
+    \node[text=gris] at (\i+0.5,-0.25) {\q};}
+  % maxima
+  \foreach \m/\deb [count=\j] in {\MaxConseq/0, \MaxSensib/3, \MaxMenaces/6, \MaxVuln/9}{
+    \draw[encre, thick, dashed] (\deb+0.15,\m) -- (\deb+2.85,\m);
+    \node[font=\scriptsize, text=encre, fill=white, inner sep=1pt] at (\deb+1.5,3.15) {max $=\m$};}
+  % calcul
+  \node[draw=accent, fill=accentclair, rounded corners=2pt, align=center, font=\small, inner sep=6pt, anchor=west] at (12.5,1.4)
+    {$\MaxConseq + \MaxSensib + \MaxMenaces + \MaxVuln = \textbf{\SommeMaxima}$\\[3pt]
+     \scriptsize barème 2007 : 9 à 10 donne 4\\[3pt]
+     \textbf{niveau adéquat \NiveauCalcule}\\[1pt]\scriptsize ajustement \Ajustement, cible \Cible};
+\end{tikzpicture}

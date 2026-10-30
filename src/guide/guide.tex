@@ -4,25 +4,14 @@
 \input{../rapport/equipe.tex}
 \input{../rapport/preambule.tex}
 \input{donnees/macros.tex}
-\fancyhead[L]{\footnotesize\color{gris}MEDICA-SERVICES · Guide pédagogique des analyses}
-\setlength{\parskip}{5pt plus 1pt}
-\setlength{\emergencystretch}{2em}
-\newcommand{\encadre}[2]{\par\smallskip\noindent\colorbox{accentclair}{\parbox{\dimexpr\linewidth-2\fboxsep}{\small\textbf{#1}\quad #2}}\par\smallskip}
+\input{donnees/graphes.tex}
 \newcommand{\Oui}{\textcolor{vert}{\textbf{O}}}
 \newcommand{\Non}{\textcolor{alerte}{\textbf{N}}}
 \newcommand{\Ind}{\textcolor{ambre}{\textbf{?}}}
 \newcommand{\Ded}{\textcolor{vert}{\textbf{O*}}}
 
 \begin{document}
-\thispagestyle{plain}
-\begin{tikzpicture}[remember picture, overlay]
-  \fill[accent] (current page.north west) rectangle ([yshift=-4.2cm]current page.north east);
-  \node[anchor=north west, text=white, align=left, text width=17cm] at ([xshift=2cm,yshift=-1.1cm]current page.north west) {%
-    {\footnotesize\Formation}\\[4pt]
-    {\LARGE\bfseries Guide pédagogique des analyses}\\[3pt]
-    {\large Comprendre, vérifier et défendre le rapport MEDICA-SERVICES}};
-\end{tikzpicture}
-\vspace*{2.9cm}
+\pagedegarde{Guide pédagogique des analyses}{Comprendre et défendre le rapport MEDICA-SERVICES}{TD 2 · Maturité SSI · méthode SGDN/DCSSI 2007}
 
 \encadre{À lire d'abord.}{Ce guide explique le raisonnement suivi dans le rapport d'audit et dans la grille Excel. Il ne constitue pas le corrigé officiel du TD. Chaque note et chaque niveau est une interprétation argumentée des pièces, que l'enseignant peut juger autrement. Les passages qui reposent sur une hypothèse ou un choix discutable sont signalés comme tels, afin que tu saches où se situent les marges de discussion à l'oral.}
 
@@ -41,7 +30,7 @@ L'idée centrale du TD tient en une phrase. Un auditeur ne note pas ce qu'on lui
 \subsection{Le vocabulaire utilisé}
 
 {\small
-\begin{longtable}{@{}L{3.4cm} L{12.6cm}@{}}
+\begin{longtable}{@{}L{3.2cm} L{12.4cm}@{}}
 \entete \hd{Terme} & \hd{Sens dans ce dossier} \\
 \endhead
 Fait & Ce qu'une pièce montre effectivement, avec sa date et son périmètre. Exemple, T04 indique 6 comptes MFA sur 10. \\
@@ -69,7 +58,7 @@ PV & Procès-verbal, ici le compte rendu daté d'un test ou d'une revue. C'est l
 Les pièces P décrivent l'organisation et servent surtout à la gouvernance. Les pièces T sont des extraits techniques qui servent à l'audit technique et à vérifier les déclarations des pièces P. Le tableau indique où chaque pièce est principalement utilisée.
 
 {\small
-\begin{longtable}{@{}C{1.6cm} L{5cm} L{9.4cm}@{}}
+\begin{longtable}{@{}C{1.6cm} L{4.7cm} L{9.1cm}@{}}
 \entete \hd{Pièce} & \hd{Contenu} & \hd{Utilisation principale} \\
 \endhead
 P01 & Identité, 12 clients, RTO de 8 h & Périmètre (G1), Q01 à Q04, critère de reprise en T4 \\
@@ -116,7 +105,7 @@ Pour chaque question, le tableau indique ce que montre la pièce, comment nous l
 
 {\footnotesize
 \setlength{\tabcolsep}{3pt}
-\begin{longtable}{@{}L{1.7cm} L{3.6cm} L{3.6cm} L{3.6cm} L{3.5cm}@{}}
+\begin{longtable}{@{}L{1.6cm} L{3.4cm} L{3.4cm} L{3.4cm} L{3.3cm}@{}}
 \entete \hd{Question} & \hd{Ce que montre la pièce} & \hd{Notre interprétation} & \hd{Pourquoi cette note} & \hd{Ce qui la ferait évoluer} \\
 \endhead
 Q01 Adhérence, \textbf{\qnote{Q01}} & L'activité est l'hébergement d'applications (P01), les clients reviennent au papier en cas de panne (P04) & Sans SI, l'entreprise n'a plus rien à vendre & Le SI est « vital à l'accomplissement des missions » & Rien de plausible, c'est la note la plus solide \\
@@ -154,28 +143,13 @@ La méthode laisse l'autorité responsable ajuster la cible d'un niveau, à cond
 
 \subsection{La grille des exigences}
 
-La méthode fournit un tableau croisant les exigences et les sept processus. Nous l'avons rempli à partir des pièces. Le symbole \Oui\ signifie démontré, \Non\ non établi, \Ind\ indéterminé faute de preuve, et \Ded\ déduit des pièces mais à confirmer. Un niveau n'est atteint que si toute sa colonne est démontrée jusqu'à lui. Deux critères sont appliqués de la même façon à tous les processus. Un compte rendu écrit des résultats vaut mesure qualitative, un compte rendu oral sans trace ne la vaut pas. La compétence est retenue lorsqu'un rôle chargé de la sécurité est désigné, ce qui reste à confirmer en entretien et explique le symbole \Ded\ de la conception.
+La méthode fournit un tableau croisant les exigences et les sept processus. Nous l'avons rempli à partir des pièces. Une case verte signifie démontré, rouge non établi, orange indéterminé faute de preuve, et vert pâle déduit des pièces mais à confirmer. Un niveau n'est atteint que si toute sa colonne est démontrée jusqu'à lui. Deux critères sont appliqués de la même façon à tous les processus. Un compte rendu écrit des résultats vaut mesure qualitative, un compte rendu oral sans trace ne la vaut pas. La compétence est retenue lorsqu'un rôle chargé de la sécurité est désigné, ce qui reste à confirmer en entretien et explique la case « déduit » de la conception.
 
-{\footnotesize
-\setlength{\tabcolsep}{2pt}
-\begin{longtable}{@{}L{4.6cm} C{1.6cm} C{1.6cm} C{1.6cm} C{1.6cm} C{1.6cm} C{1.6cm} C{1.6cm}@{}}
-\entete \hd{Exigence} & \hd{\scriptsize Stratégie} & \hd{\scriptsize Risques} & \hd{\scriptsize Règles} & \hd{\scriptsize Supervision} & \hd{\scriptsize Conception} & \hd{\scriptsize Réalisation} & \hd{\scriptsize Exploitation} \\
-\endhead
-\rowcolor{grisclair}\multicolumn{8}{@{}l}{\textbf{Niveau 1}} \\
-Actions avec des pratiques de base & \Oui & \Oui & \Oui & \Oui & \Oui & \Oui & \Oui \\
-\rowcolor{grisclair}\multicolumn{8}{@{}l}{\textbf{Niveau 2}} \\
-Actions planifiées & \Oui & \Non & \Oui & \Non & \Oui & \Ind & \Oui \\
-Acteurs compétents en SSI & \Oui & \Oui & \Oui & \Oui & \Ded & \Oui & \Oui \\
-Certaines pratiques formalisées & \Oui & \Non & \Oui & \Non & \Oui & \Oui & \Oui \\
-Mesures qualitatives & \Ind & \Non & \Oui & \Non & \Oui & \Oui & \Oui \\
-Autorités informées & \Oui & \Ind & \Oui & \Non & \Oui & \Oui & \Oui \\
-\rowcolor{grisclair}\multicolumn{8}{@{}l}{\textbf{Niveau 3}} \\
-Processus défini, standardisé, formalisé & \Non & \Non & \Non & \Non & \Non & \Non & \Non \\
-Compétences appropriées au processus & \Ind & \Ind & \Ind & \Ind & \Ind & \Ind & \Ind \\
-L'organisme soutient le processus & \Ind & \Ind & \Ind & \Ind & \Ind & \Ind & \Ind \\
-\midrule
-\textbf{Niveau effectif démontré} & \textbf{\peff{Stratégie}} & \textbf{\peff{Risques}} & \textbf{\peff{Règles}} & \textbf{\peff{Supervision}} & \textbf{\peff{Conception}} & \textbf{\peff{Réalisation}} & \textbf{\peff{Exploitation}} \\
-\end{longtable}}
+\begin{figure}[H]
+\centering
+\resizebox{\linewidth}{!}{\input{../rapport/figures/exigences.tex}}
+\caption{Grille des exigences cumulatives, identique à celle du rapport.}
+\end{figure}
 
 Le niveau 3 est bloqué partout par la première exigence. Chaque pièce P09 à P15 signale, sous une forme ou une autre, l'absence de processus commun. P09, P11, P13, P14 et P15 le disent directement, P10 évoque l'absence de méthode stable réutilisable et P12 l'absence de procédure commune. Inutile donc de discuter les deux autres exigences du niveau 3. Aucun processus n'est à 0, car chacun montre au moins quelques actions de base.
 
@@ -197,7 +171,7 @@ Le niveau 3 est bloqué partout par la première exigence. Chaque pièce P09 à 
 
 \subsection{Revendiqué, démontré, indéterminé}
 
-Le sujet demande de présenter séparément ces trois notions. Le niveau revendiqué est celui que l'organisme annonce. Aucune pièce n'annonce de niveau chiffré, d'où la mention « Non déclaré » dans la colonne B de l'onglet 02, comme le prévoit la notice. Les affirmations de P17 portent sur des pratiques, pas sur des niveaux, mais elles montrent que l'organisme se perçoit plus mature qu'il ne le prouve. Le niveau démontré est celui de la colonne C. Le niveau indéterminé correspond aux exigences marquées \Ind, en particulier le niveau 2 de la stratégie et celui de la réalisation.
+Le sujet demande de présenter séparément ces trois notions. Le niveau revendiqué est celui que l'organisme annonce. Aucune pièce n'annonce de niveau chiffré, d'où la mention « Non déclaré » dans la colonne B de l'onglet 02, comme le prévoit la notice. Les affirmations de P17 portent sur des pratiques, pas sur des niveaux, mais elles montrent que l'organisme se perçoit plus mature qu'il ne le prouve. Le niveau démontré est celui de la colonne C. Le niveau indéterminé correspond aux cases orange, en particulier le niveau 2 de la stratégie et celui de la réalisation.
 
 La colonne F de l'onglet 02 calcule automatiquement l'écart \texttt{MAX(0; cible - niveau)}. Avec une cible de 4, on obtient 3 pour les processus au niveau 1 et 2 pour ceux au niveau 2. La notice rappelle que cet écart n'est pas une mesure de risque. Il dit combien de marches il reste à gravir, pas l'urgence de le faire. Une cellule C vide signifierait « non positionné faute de preuve », ce qui est différent de 0. Nous n'avons laissé aucune cellule vide car le niveau 1 est démontré partout.
 
@@ -277,12 +251,12 @@ Les valeurs du rapport et de l'Excel ont été contrôlées pour être identique
 %======================================================================
 \section{L'organisation du projet}
 
-Le Gantt montre les fenêtres de travail de chaque membre, les dépendances et quatre jalons. Les barres ne signifient pas un travail à plein temps, mais la période pendant laquelle la tâche doit avancer. Le Kanban reprend exactement les mêmes identifiants E1 à E18. Le Gantt décrit le planning cible, le Kanban décrit l'avancement attesté. Comme aucun avancement n'a été documenté, le Kanban montre son état initial du 20 octobre, toutes les cartes étant dans « À faire ». L'équipe déplace ensuite chaque carte au fil des preuves de réalisation. Les dépendances sont de type début-début. Une tâche aval démarre après le début de la tâche dont elle dépend et se termine après elle, ce qui explique les chevauchements, par exemple la rédaction qui commence avant la fin de la corrélation.
+Le Gantt montre les fenêtres de travail de chaque membre, regroupées en quatre phases, avec les jalons. Les barres ne signifient pas un travail à plein temps, mais la période pendant laquelle la tâche doit avancer. Les dépendances sont de type fin-début, une tâche démarrant quand celles dont elle dépend sont terminées. Le Kanban reprend les mêmes identifiants E1 à E18 et décrit l'avancement attesté au 30 octobre. La version 1 de chaque analyse existe et attend la relecture croisée de l'équipe, d'où la colonne « À relire ». L'atelier et la lecture individuelle des pièces ne sont pas attestés et restent « À faire ». Aucune tâche n'est validée tant que l'équipe n'a pas relu. L'équipe déplace ensuite chaque carte au fil des preuves.
 
 {\footnotesize
 \setlength{\tabcolsep}{3pt}
-\begin{longtable}{@{}C{0.8cm} L{4.8cm} L{1.4cm} L{2.4cm} L{2.4cm} L{1.7cm} L{2.2cm}@{}}
-\entete \hd{ID} & \hd{Tâche} & \hd{Pilote} & \hd{Fenêtre} & \hd{Dépend de} & \hd{Kanban} & \hd{État attesté} \\
+\begin{longtable}{@{}C{0.8cm} L{4.0cm} L{1.4cm} L{2.3cm} L{2.4cm} L{3.2cm}@{}}
+\entete \hd{ID} & \hd{Tâche} & \hd{Pilote} & \hd{Fenêtre} & \hd{Dépend de} & \hd{État au 30 octobre} \\
 \endhead
 \lignes{tab_taches}
 \end{longtable}}
@@ -292,7 +266,7 @@ Le Gantt montre les fenêtres de travail de chaque membre, les dépendances et q
 
 {\small
 \setlength{\tabcolsep}{3pt}
-\begin{longtable}{@{}L{4.2cm} L{6cm} L{6cm}@{}}
+\begin{longtable}{@{}L{4.0cm} L{5.7cm} L{5.7cm}@{}}
 \entete \hd{Choix retenu} & \hd{Alternative défendable} & \hd{Effet sur les résultats} \\
 \endhead
 Q05 à 2 & Q05 à 3 si l'on raisonne sur la sécurité des patients & Aucun, Q06 maintient la sensibilité à 3 \\
@@ -316,7 +290,7 @@ Les questions suivantes sont probables lors de la soutenance. Les éléments de 
 
 {\small
 \setlength{\tabcolsep}{3pt}
-\begin{longtable}{@{}L{5cm} L{11.2cm}@{}}
+\begin{longtable}{@{}L{4.8cm} L{10.9cm}@{}}
 \entete \hd{Question possible} & \hd{Éléments de réponse} \\
 \endhead
 L'entreprise est-elle au niveau 4 ? & Non. Le niveau 4 est sa cible, calculée à partir des enjeux. Ses processus démontrent 1 ou 2. \\

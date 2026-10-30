@@ -1,0 +1,16 @@
+% Score CVSS et retard de correctifs par hôte (T05, T06). La priorité retenue tient compte de l'exposition et de la criticité.
+\begin{tikzpicture}
+\begin{axis}[
+  width=0.62\linewidth, height=5.3cm, font=\scriptsize,
+  xmin=4, xmax=10.5, ymin=0, ymax=85,
+  xlabel={score CVSS communiqué (T05)}, ylabel={retard de correctifs de l'hôte, jours (T06)},
+  grid=major, grid style={draw=filet}, axis lines*=left,
+]
+\addplot[only marks, mark=*, mark size=6pt, draw=alerte, fill=alerte!35] coordinates {(9.8,74)};
+\addplot[only marks, mark=*, mark size=5pt, draw=ambre, fill=ambre!35] coordinates {(6.5,43)};
+\addplot[only marks, mark=*, mark size=4pt, draw=accent, fill=accent!30] coordinates {(5.3,12)};
+\node[anchor=east, align=right] at (axis cs:9.45,74) {\textbf{APP01}, priorité 1\\ critique, joignable depuis la DMZ};
+\node[anchor=west, align=left] at (axis cs:6.85,43) {\textbf{SRV-FICHIERS}, priorité 2\\ tout le VLAN 40 (FW-19)};
+\node[anchor=west, align=left] at (axis cs:5.6,15) {\textbf{WEB01}, priorité 3\\ exposé Internet, impact limité};
+\end{axis}
+\end{tikzpicture}

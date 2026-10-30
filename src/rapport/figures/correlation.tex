@@ -1,0 +1,16 @@
+% Corrélation gouvernance et technique : constat, risque, processus et niveau, action et pilote (T5)
+\begin{tikzpicture}[font=\scriptsize,
+  b/.style={draw=#1, fill=#1!8, rounded corners=2pt, align=center, minimum height=0.85cm, inner sep=3pt},
+  fl/.style={-{Stealth[length=1.6mm]}, gris}]
+  \foreach \t/\x in {Constat technique/1.9, Risque/5.05, Processus et niveau démontré/8.45, Action et pilote/12.45}
+    {\node[font=\scriptsize\bfseries, text=encre] at (\x,0.65) {\t};}
+  \newcounter{corr}
+  \newcommand\ChaineCorr[7]{\stepcounter{corr}%
+    \pgfmathsetmacro\yy{-(\value{corr}-1)*1.08}%
+    \node[b=accent, text width=3.5cm] (c\arabic{corr}) at (1.9,\yy) {\textbf{#1} #2};
+    \node[b=alerte, text width=1.1cm] (r\arabic{corr}) at (5.05,\yy) {\textbf{#3}};
+    \node[b=violet, text width=4.1cm] (p\arabic{corr}) at (8.45,\yy) {#4\\\textbf{#5}};
+    \node[b=vert, text width=2.9cm] (a\arabic{corr}) at (12.45,\yy) {\textbf{#6}\\#7};
+    \draw[fl] (c\arabic{corr}) -- (r\arabic{corr}); \draw[fl] (r\arabic{corr}) -- (p\arabic{corr}); \draw[fl] (p\arabic{corr}) -- (a\arabic{corr});}
+  \input{donnees/graph_correlation.tex}
+\end{tikzpicture}
